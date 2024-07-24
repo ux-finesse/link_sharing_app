@@ -1,11 +1,11 @@
 "use client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../components/common/buttons/Primary";
 import { toast } from "react-toastify";
 
-const SignUp: React.FC = () => {
+const SignUp: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -96,7 +96,7 @@ const SignUp: React.FC = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="w-[476px] h-[618px] rounded-md bg-white p-[40px]"
+        className="w-[476px] h-[618px] rounded-lg bg-white p-[40px]"
       >
         <div className="mb-[40px] gap-[8px] flex flex-col">
           <h3 className="leading-[48px] text-[32px] font-[600] font-IntSans">
@@ -121,7 +121,7 @@ const SignUp: React.FC = () => {
                 placeholder="e.g. alex@email.com"
                 className={`w-[396px] focus:shadow-xl relative outline-primary-color text-[16px] h-[48px] border ${
                   errors.email ? "border-red-500" : "border-border-color"
-                } rounded-md pl-[44px] pr-[16px] py-[12px]`}
+                } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
               />
@@ -153,7 +153,7 @@ const SignUp: React.FC = () => {
                 placeholder="At least 8 characters"
                 className={`w-[396px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
                   errors.password ? "border-red-500" : "border-border-color"
-                } rounded-md pl-[44px] pr-[16px] py-[12px]`}
+                } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={password}
                 onChange={(e) => handleInputChange("password", e.target.value)}
               />
@@ -187,7 +187,7 @@ const SignUp: React.FC = () => {
                   errors.confirmPassword
                     ? "border-red-500"
                     : "border-border-color"
-                } outline-primary-color rounded-md pl-[44px] pr-[16px] py-[12px]`}
+                } outline-primary-color rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={confirmPassword}
                 onChange={(e) =>
                   handleInputChange("confirmPassword", e.target.value)

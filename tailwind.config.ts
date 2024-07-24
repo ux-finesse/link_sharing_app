@@ -21,6 +21,7 @@ const config: Config = {
         "error-color": "#ff3939",
         "dark-grey": "#333333",
         "grey-color": "#737373",
+        "light-grey": "#fafafa",
       },
       fontFamily: {
         IntSans: ["InstrumentSans", "sans-serif"],

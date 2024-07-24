@@ -4,8 +4,7 @@ import { useAuth } from "../lib/useAuth";
 import Link from "next/link";
 
 import NavBar from "../components/layouts/NavBar";
-import PhoneMockup from "../components/layouts/PhoneMockup";
-import CustomizeLink from "../components/layouts/CustomizeLink";
+import CustomizeLink from "../components/CustomizeLink";
 
 const Dashboard: React.FC = () => {
   const { user, loading } = useAuth();
@@ -28,10 +27,7 @@ const Dashboard: React.FC = () => {
   return (
     <main>
       <NavBar />
-      <section>
-        <PhoneMockup />
-        <CustomizeLink />
-      </section>
+      <CustomizeLink />
     </main>
   );
 };

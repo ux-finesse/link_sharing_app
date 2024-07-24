@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Button from "../common/buttons/Secondary"
-import TabButton from "../common/buttons/TabButton"
+import Button from "../common/buttons/Secondary";
+import TabButton from "../common/buttons/TabButton";
 
 const NavBar: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
           />
           <div className="flex gap-[16px]">
             <Link href="/">
-              <TabButton className="rounded-md flex gap-[8px] justify-center items-center w-[130px] h-[46px] bg-primary-hover px-[27px] py-[11px] hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]">
+              <TabButton className="rounded-lg flex gap-[8px] justify-center items-center w-[130px] h-[46px] bg-primary-hover px-[27px] py-[11px] hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]">
                 <svg
                   width="21"
                   height="20"
@@ -36,7 +36,7 @@ const NavBar: React.FC = () => {
             </Link>
 
             <Link href="/">
-              <TabButton className="rounded-md flex gap-[8px] justify-center items-center w-[191px] h-[46px] bg-white px-[27px] py-[11px] hover:text-primary-color text-grey-color text-[16px] font-[600] leading-[24px]">
+              <TabButton className="rounded-lg flex gap-[8px] justify-center items-center w-[191px] h-[46px] bg-white px-[27px] py-[11px] hover:text-primary-color text-grey-color text-[16px] font-[600] leading-[24px]">
                 <svg
                   className="transition-colors"
                   width="21"
@@ -54,7 +54,9 @@ const NavBar: React.FC = () => {
               </TabButton>
             </Link>
           </div>
-          <Button>Preview</Button>
+          <Button className="rounded-lg w-[114px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]">
+            Preview
+          </Button>
         </div>
       </nav>
     </>

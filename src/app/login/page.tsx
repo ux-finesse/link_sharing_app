@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import Image from "next/image";
 import Button from "../components/common/buttons/Primary";
 import Link from "next/link";
@@ -8,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
-const LogIn: React.FC = () => {
+const LogIn: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -65,7 +64,7 @@ const LogIn: React.FC = () => {
         />
         <form
           onSubmit={handleSubmit}
-          className="w-[476px] h-[482px] rounded-md bg-white p-[40px] gap-[40px]"
+          className="w-[476px] h-[482px] rounded-lg bg-white p-[40px] gap-[40px]"
         >
           <div className="mb-[40px] gap-[8px] flex flex-col">
             <h3 className="leading-[48px] text-[32px] font-[600] font-IntSans ">
@@ -92,7 +91,7 @@ const LogIn: React.FC = () => {
                   placeholder="e.g. alex@email.com"
                   className={`w-[396px] focus:shadow-xl relative text-[16px] h-[48px] outline-primary-color border ${
                     errors.email ? "border-red-500" : "border-border-color"
-                  } rounded-md pl-[44px] pr-[16px] py-[12px]`}
+                  } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 />
                 <Image
                   src="/ph_envelope-simple-fill.svg"
@@ -124,7 +123,7 @@ const LogIn: React.FC = () => {
                   placeholder="Enter your password"
                   className={`w-[396px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
                     errors.password ? "border-red-500" : "border-border-color"
-                  } rounded-md  pl-[44px] pr-[16px] py-[12px]`}
+                  } rounded-lg  pl-[44px] pr-[16px] py-[12px]`}
                 />
                 <Image
                   src="/ph_lock-key-fill.svg"
@@ -143,7 +142,7 @@ const LogIn: React.FC = () => {
           </div>
           <Button
             type="submit"
-            className="rounded-md w-[396px] h-[46px] bg-primary-color text-white text-[16px] font-[600]"
+            className="rounded-lg w-[396px] h-[46px] bg-primary-color text-white text-[16px] font-[600]"
           >
             {loading ? "Logging in..." : "Login"}
           </Button>
