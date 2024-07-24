@@ -1,7 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 
 import React, { FC } from "react";
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from "@headlessui/react";
 
 const socials = [
   {
@@ -40,7 +45,10 @@ const socials = [
   },
 ];
 
-const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({ selected, onChange }) => {
+const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
+  selected,
+  onChange,
+}) => {
   return (
     <Listbox value={selected} onChange={onChange}>
       <div className="relative">
@@ -83,9 +91,9 @@ const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({ se
                 <img
                   alt={social.name}
                   src={social.icon}
-                  className="h-5 w-5 flex-shrink-0 rounded-full"
+                  className="h-5 w-5 flex-shrink-0 rounded-full group-hover:scale-110  transition-transform duration-150"
                 />
-                <span className="ml-3 block truncate font-normal group-data-[selected]:font-semibold">
+                <span className="ml-3 block truncate font-normal group-data-[selected]:font-semibold hover:text-primary-color">
                   {social.name}
                 </span>
               </div>

@@ -1,11 +1,13 @@
 "use client";
 import React, { FormEvent, useState, FC } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../components/common/buttons/Primary";
 import { toast } from "react-toastify";
 
 const SignUp: FC = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,7 +17,6 @@ const SignUp: FC = () => {
     confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     switch (field) {
@@ -75,7 +76,7 @@ const SignUp: FC = () => {
         }
 
         toast.success("Account created successfully");
-        setSuccess(true); // Set success to true to show the link to the dashboard
+        router.push("/welcome"); // Redirect to welcome screen
       } catch (error) {
         toast.error((error as Error).message);
       } finally {
@@ -212,26 +213,20 @@ const SignUp: FC = () => {
           </p>
         </div>
 
-        <Button type="submit">
+        <Button
+          type="submit"
+          className="rounded-lg w-[396px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
+        >
           {loading ? "Signing you up...." : "Create new account"}
         </Button>
-        {success && (
-          <div className="mt-[24px]">
-            <Link href="/dashboard">
-              <p className="text-primary-color text-[16px] font-IntSans font-[400] leading-[24px] hover:underline">
-                Go to Dashboard
-              </p>
-            </Link>
-          </div>
-        )}
         <div className="flex gap-[5px] items-center justify-center flex mt-[24px]">
           <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
             Already have an account?
           </p>
           <Link href="/login">
-            <span className="text-primary-color text-[16px] font-IntSans font-[400] leading-[24px] hover:underline cursor-pointer">
+            <a className="text-primary-color text-[16px] font-IntSans font-[400] leading-[24px] hover:underline cursor-pointer">
               Login
-            </span>
+            </a>
           </Link>
         </div>
       </form>

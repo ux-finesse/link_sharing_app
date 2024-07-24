@@ -1,10 +1,15 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { useAuth } from "../lib/useAuth";
 import Link from "next/link";
 
+import NavBar from "../components/layouts/NavBar";
+import CustomizeLink from "../components/CustomizeLink";
+
 const Dashboard: React.FC = () => {
   const { user, loading } = useAuth();
+
+  const [selectedTab, setSelectedTab] = useState("links");
 
   if (loading) {
     return <p>Loading...</p>;
@@ -22,10 +27,10 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1>Welcome, {user.email}</h1>
-      {/* Your dashboard content */}
-    </div>
+    <main>
+      <NavBar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      <CustomizeLink selectedTab={selectedTab} />
+    </main>
   );
 };
 

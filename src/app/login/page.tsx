@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase";
+import { toast } from "react-toastify";
 
 const LogIn: FC = () => {
   const [email, setEmail] = useState("");
@@ -28,10 +29,10 @@ const LogIn: FC = () => {
       setLoading(true);
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        router.push("/dashboard"); // Redirect to dashboard on successful login
+        router.push("/welcome"); // Redirect to welcome screen on successful login
       } catch (error) {
         console.error(error);
-        alert("Failed to login. Please check your credentials.");
+        toast.error("Failed to login. Please check your credentials.");
       } finally {
         setLoading(false);
       }
@@ -142,7 +143,7 @@ const LogIn: FC = () => {
           </div>
           <Button
             type="submit"
-            className="rounded-lg w-[396px] h-[46px] bg-primary-color text-white text-[16px] font-[600]"
+            className="rounded-lg w-[396px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
           >
             {loading ? "Logging in..." : "Login"}
           </Button>
