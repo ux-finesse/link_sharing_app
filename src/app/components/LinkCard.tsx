@@ -8,7 +8,6 @@ const LinkCard: FC<{
   platform: any;
   onRemove: (id: number) => void;
   onSave: (id: number, url: string, platform: any) => void;
-  onPlatformChange: (id: number, platform: any) => void;
   error?: string;
 }> = ({
   id,
@@ -16,7 +15,6 @@ const LinkCard: FC<{
   platform: initialPlatform,
   onRemove,
   onSave,
-  onPlatformChange,
   error,
 }) => {
   const [url, setUrl] = useState(initialUrl);
@@ -29,12 +27,7 @@ const LinkCard: FC<{
 
   useEffect(() => {
     onSave(id, url, platform);
-  }, [url, platform]);
-
-  const handlePlatformChange = (selectedPlatform: any) => {
-    setPlatform(selectedPlatform);
-    onPlatformChange(id, selectedPlatform);
-  };
+  }, [url, platform, onSave, id]);
 
   return (
     <div className="w-[728px] h-[248px] rounded-lg bg-light-grey p-[20px] flex flex-col gap-[12px]">
@@ -61,7 +54,7 @@ const LinkCard: FC<{
           Remove
         </span>
       </div>
-      <Dropdown selected={platform} onSelect={handlePlatformChange} />
+      <Dropdown selected={platform} onSelect={setPlatform} />
       <div className="flex flex-col gap-[24px]">
         <div className="gap-[8px] flex flex-col">
           <label

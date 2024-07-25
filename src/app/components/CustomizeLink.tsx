@@ -1,120 +1,18 @@
-/* eslint-disable @next/next/no-img-element */
-
-import React, { FC, useState, useEffect } from "react";
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOption,
-  ListboxOptions,
-} from "@headlessui/react";
-import Image from "next/image";
+import { FC, useState, useEffect } from "react";
 import Button from "./common/buttons/Secondary";
 import Empty from "./Empty";
 import LinkCard from "./LinkCard";
-// import LinkPreview from "./LinkPreview"; // Make sure to import LinkPreview
-
-const socials = [
-  {
-    id: 1,
-    name: "GitHub",
-    icon: "/github.svg",
-    color: "#181717",
-  },
-  {
-    id: 2,
-    name: "Frontend Mentor",
-    icon: "/ftmen.svg",
-    color: "#F8F9FA",
-  },
-  { id: 3, name: "Twitter", icon: "/twitter.svg", color: "#1DA1F2" },
-  { id: 4, name: "LinkedIn", icon: "/linkedin.svg", color: "#0077B5" },
-  { id: 5, name: "YouTube", icon: "/youtube.svg", color: "#FF0000" },
-  { id: 6, name: "Facebook", icon: "/facebook.svg", color: "#1877F2" },
-  { id: 7, name: "Twitch", icon: "/twitch.svg", color: "#9146FF" },
-  { id: 8, name: "Dev.to", icon: "/devto.svg", color: "#0A0A0A" },
-  { id: 9, name: "Codewars", icon: "/codewars.svg", color: "#AD2C27" },
-  { id: 10, name: "Codepen", icon: "/codepen.svg", color: "#000000" },
-  {
-    id: 11,
-    name: "freeCodeCamp",
-    icon: "/freecodecamp.svg",
-    color: "#006400",
-  },
-  { id: 12, name: "GitLab", icon: "/gitlab.svg", color: "#FC6D26" },
-  { id: 13, name: "Hashnode", icon: "/hashnode.svg", color: "#2962FF" },
-  {
-    id: 14,
-    name: "Stack Overflow",
-    icon: "/stack.svg",
-    color: "#F48024",
-  },
-];
-
-const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
-  selected,
-  onChange,
-}) => {
-  return (
-    <Listbox value={selected} onChange={onChange}>
-      <div className="relative">
-        <label className="text-[12px] font-IntSans text-dark-grey">
-          Platform
-        </label>
-        <ListboxButton className="relative w-full h-[48px] mt-[4px] cursor-default rounded-lg bg-white py-1.5 pl-[16px] pr-[16px] text-left text-dark-grey shadow-sm ring-1 ring-inset ring-gray-300 focus:shadow-xl focus:outline-primary-color focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6 border-border-color">
-          <span className="flex items-center">
-            {selected && (
-              <img
-                alt={selected.name}
-                src={selected.icon}
-                className="h-5 w-5 flex-shrink-0 rounded-full"
-              />
-            )}
-            <span className="ml-3 block truncate">
-              {selected ? selected.name : "Select a platform"}
-            </span>
-          </span>
-          <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-[16px]">
-            <svg
-              width="14"
-              height="9"
-              viewBox="0 0 14 9"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M1 1L7 7L13 1" stroke="#633CFF" strokeWidth="2" />
-            </svg>
-          </span>
-        </ListboxButton>
-        <ListboxOptions className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-          {socials.map((social) => (
-            <ListboxOption
-              key={social.id}
-              value={social}
-              className="group relative cursor-default select-none py-2 pr-[16px] pl-[16px] text-gray-900"
-            >
-              <div className="flex items-center">
-                <img
-                  alt={social.name}
-                  src={social.icon}
-                  className="h-5 w-5 flex-shrink-0 rounded-full group-hover:scale-110  transition-transform duration-150"
-                />
-                <span className="ml-3 block truncate font-normal group-data-[selected]:font-semibold hover:text-primary-color">
-                  {social.name}
-                </span>
-              </div>
-            </ListboxOption>
-          ))}
-        </ListboxOptions>
-      </div>
-    </Listbox>
-  );
-};
+import Image from "next/image";
+import {
+  LinkPreview1, LinkPreview2, LinkPreview3, LinkPreview4, LinkPreview5, 
+  LinkPreview6, LinkPreview7, LinkPreview8, LinkPreview9, LinkPreview10, 
+  LinkPreview11, LinkPreview12, LinkPreview13, LinkPreview14 
+} from "./LinkPreview";
 
 const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
   const [links, setLinks] = useState<any[]>([]);
   const [linkCount, setLinkCount] = useState(0);
   const [errors, setErrors] = useState<{ [key: number]: string }>({});
-  const [previews, setPreviews] = useState<{ [key: number]: any }>({});
 
   const [formValues, setFormValues] = useState({
     firstname: "",
@@ -176,16 +74,12 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
     setLinks(
       links.map((link) => (link.id === id ? { ...link, url, platform } : link))
     );
-    setPreviews({ ...previews, [id]: platform });
   };
 
   // DELETE: Remove a link
   const handleRemoveLink = (id: number) => {
     const newLinks = links.filter((link) => link.id !== id);
     setLinks(newLinks);
-    if (newLinks.length === 0) {
-      setLinkCount(0); // Reset link count when all links are removed
-    }
   };
 
   // Save all links and profile details
@@ -229,60 +123,76 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
     }
   };
 
-  // Map of ID to corresponding LinkPreview component
-  const renderLinkPreview = (id: number) => {
-    const platform = previews[id];
-    if (!platform) return null;
-
-    switch (platform.id) {
-      case 1:
-        return (
-          <div className="bg-[#1a1a1a] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg">
-            <div className="flex flex-row items-center gap-[8px]">
-              <Image
-                src="/icons/teenyicons_github-solid.svg"
-                alt="app-logo"
-                width={20}
-                height={20}
-              />
-              <p className="text-white font-[400] leading-[24px] text-[16px]">
-                GitHub
-              </p>
-            </div>
-            <Image
-              src="/icons/mdi_arrow-right.svg"
-              alt="app-logo"
-              width={16}
-              height={16}
-            />
-          </div>
+  const renderLinkPreviews = () => {
+    const previews = [];
+    for (let i = 0; i < 5; i++) {
+      const link = links[i];
+      if (link) {
+        const { platform } = link;
+        switch (platform?.id) {
+          case 1:
+            previews.push(<LinkPreview1 key={i} />);
+            break;
+          case 2:
+            previews.push(<LinkPreview2 key={i} />);
+            break;
+          case 3:
+            previews.push(<LinkPreview3 key={i} />);
+            break;
+          case 4:
+            previews.push(<LinkPreview4 key={i} />);
+            break;
+          case 5:
+            previews.push(<LinkPreview5 key={i} />);
+            break;
+          case 6:
+            previews.push(<LinkPreview6 key={i} />);
+            break;
+          case 7:
+            previews.push(<LinkPreview7 key={i} />);
+            break;
+          case 8:
+            previews.push(<LinkPreview8 key={i} />);
+            break;
+          case 9:
+            previews.push(<LinkPreview9 key={i} />);
+            break;
+          case 10:
+            previews.push(<LinkPreview10 key={i} />);
+            break;
+          case 11:
+            previews.push(<LinkPreview11 key={i} />);
+            break;
+          case 12:
+            previews.push(<LinkPreview12 key={i} />);
+            break;
+          case 13:
+            previews.push(<LinkPreview13 key={i} />);
+            break;
+          case 14:
+            previews.push(<LinkPreview14 key={i} />);
+            break;
+          default:
+            previews.push(
+              <div
+                key={i}
+                id={`link${i + 1}`}
+                className="w-[237px] h-[44px] bg-[#EEEEEE] rounded-lg"
+              ></div>
+            );
+            break;
+        }
+      } else {
+        previews.push(
+          <div
+            key={i}
+            id={`link${i + 1}`}
+            className="w-[237px] h-[44px] bg-[#EEEEEE] rounded-lg"
+          ></div>
         );
-      case 5:
-        return (
-          <div className="bg-[#FF0000] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg">
-            <div className="flex flex-row items-center gap-[8px]">
-              <Image
-                src="/icons/teenyicons_youtube-solid.svg"
-                alt="app-logo"
-                width={20}
-                height={20}
-              />
-              <p className="text-white font-[400] leading-[24px] text-[16px]">
-                YouTube
-              </p>
-            </div>
-            <Image
-              src="/icons/mdi_arrow-right.svg"
-              alt="app-logo"
-              width={16}
-              height={16}
-            />
-          </div>
-        );
-      // Add other cases for different platforms here
-      default:
-        return null;
+      }
     }
+    return previews;
   };
 
   return (
@@ -307,13 +217,7 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
               </div>
 
               <div className="items-center justify-center flex flex-col gap-[20px]">
-                {Array.from({ length: 5 }, (_, index) => (
-                  <div key={index} id={`link${index + 1}`}>
-                    {renderLinkPreview(index + 1) || (
-                      <div className="w-[237px] h-[44px] bg-[#EEEEEE] rounded-lg"></div>
-                    )}
-                  </div>
-                ))}
+                {renderLinkPreviews()}
               </div>
             </div>
           </div>
@@ -353,7 +257,6 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
                           onRemove={handleRemoveLink}
                           onSave={handleSaveLink}
                           error={errors[link.id]}
-                          onPlatformChange={(link.selectedPlatform)}
                         />
                       ))
                     )}
@@ -527,4 +430,3 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
 };
 
 export default CustomizeLink;
-

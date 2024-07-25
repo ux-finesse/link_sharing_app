@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import React, { FC } from "react";
 import {
   Listbox,
@@ -7,8 +9,18 @@ import {
 } from "@headlessui/react";
 
 const socials = [
-  { id: 1, name: "GitHub", icon: "/github.svg", color: "#181717" },
-  { id: 2, name: "Frontend Mentor", icon: "/ftmen.svg", color: "#F8F9FA" },
+  {
+    id: 1,
+    name: "GitHub",
+    icon: "/github.svg",
+    color: "#181717",
+  },
+  {
+    id: 2,
+    name: "Frontend Mentor",
+    icon: "/ftmen.svg",
+    color: "#F8F9FA",
+  },
   { id: 3, name: "Twitter", icon: "/twitter.svg", color: "#1DA1F2" },
   { id: 4, name: "LinkedIn", icon: "/linkedin.svg", color: "#0077B5" },
   { id: 5, name: "YouTube", icon: "/youtube.svg", color: "#FF0000" },
@@ -17,10 +29,20 @@ const socials = [
   { id: 8, name: "Dev.to", icon: "/devto.svg", color: "#0A0A0A" },
   { id: 9, name: "Codewars", icon: "/codewars.svg", color: "#AD2C27" },
   { id: 10, name: "Codepen", icon: "/codepen.svg", color: "#000000" },
-  { id: 11, name: "freeCodeCamp", icon: "/freecodecamp.svg", color: "#006400" },
+  {
+    id: 11,
+    name: "freeCodeCamp",
+    icon: "/freecodecamp.svg",
+    color: "#006400",
+  },
   { id: 12, name: "GitLab", icon: "/gitlab.svg", color: "#FC6D26" },
   { id: 13, name: "Hashnode", icon: "/hashnode.svg", color: "#2962FF" },
-  { id: 14, name: "Stack Overflow", icon: "/stack.svg", color: "#F48024" },
+  {
+    id: 14,
+    name: "Stack Overflow",
+    icon: "/stack.svg",
+    color: "#F48024",
+  },
 ];
 
 const Dropdown: FC<{ selected: any; onSelect: (selected: any) => void }> = ({
@@ -69,7 +91,7 @@ const Dropdown: FC<{ selected: any; onSelect: (selected: any) => void }> = ({
                 <img
                   alt={social.name}
                   src={social.icon}
-                  className="h-5 w-5 flex-shrink-0 rounded-full group-hover:scale-110 transition-transform duration-150"
+                  className="h-5 w-5 flex-shrink-0 rounded-full group-hover:scale-110  transition-transform duration-150"
                 />
                 <span className="ml-3 block truncate font-normal group-data-[selected]:font-semibold hover:text-primary-color">
                   {social.name}

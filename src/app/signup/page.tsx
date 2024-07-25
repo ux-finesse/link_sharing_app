@@ -1,6 +1,6 @@
 "use client";
 import React, { FormEvent, useState, FC } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../components/common/buttons/Primary";
