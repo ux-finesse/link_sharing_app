@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Button from "../common/buttons/Secondary";
@@ -7,9 +7,27 @@ import TabButton from "../common/buttons/TabButton";
 const NavBar: FC<{
   selectedTab: string;
   setSelectedTab: (tab: string) => void;
-}> = ({ selectedTab, setSelectedTab }) => {
+  links: any[];
+  formValues: { firstname: string; lastname: string; email: string };
+  preview: string | null;
+}> = ({ selectedTab, setSelectedTab, links, formValues, preview }) => {
   const handleTabClick = (tab: string) => {
     setSelectedTab(tab);
+  };
+
+  const handlePreviewClick = async () => {
+    const response = await fetch("/api/saveState", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        links,
+        formValues,
+        preview,
+      }),
+    });
+    const data = await response.json();
+    const previewUrl = `/preview?key=${data.key}`;
+    window.location.href = previewUrl;
   };
 
   return (
@@ -60,11 +78,11 @@ const NavBar: FC<{
               } text-[16px] font-[600] leading-[24px]`}
             >
               <svg
-                className="transition-colors"
+                className="hover:"
                 width="21"
                 height="20"
                 viewBox="0 0 21 20"
-                fill="currentColor"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -75,11 +93,12 @@ const NavBar: FC<{
               Profile Details
             </TabButton>
           </div>
-          <Link href="/preview">
-            <Button className="rounded-lg w-[114px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]">
-              Preview
-            </Button>
-          </Link>
+          <Button
+            className="rounded-lg w-[114px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]"
+            onClick={handlePreviewClick}
+          >
+            Preview
+          </Button>
         </div>
       </nav>
     </>
