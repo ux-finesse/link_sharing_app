@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-
 import React, { FC } from "react";
 import {
   Listbox,
@@ -45,12 +44,12 @@ const socials = [
   },
 ];
 
-const Dropdown: FC<{ selected: any; onSelect: (selected: any) => void }> = ({
+const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
   selected,
-  onSelect,
+  onChange,
 }) => {
   return (
-    <Listbox value={selected} onChange={onSelect}>
+    <Listbox value={selected} onChange={onChange}>
       <div className="relative">
         <label className="text-[12px] font-IntSans text-dark-grey">
           Platform

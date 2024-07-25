@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useState, useEffect } from "react";
 import Dropdown from "./DropDown";
 import Image from "next/image";
@@ -27,7 +28,7 @@ const LinkCard: FC<{
 
   useEffect(() => {
     onSave(id, url, platform);
-  }, [url, platform, onSave, id]);
+  }, [url, platform]);
 
   return (
     <div className="w-[728px] h-[248px] rounded-lg bg-light-grey p-[20px] flex flex-col gap-[12px]">
@@ -54,7 +55,7 @@ const LinkCard: FC<{
           Remove
         </span>
       </div>
-      <Dropdown selected={platform} onSelect={setPlatform} />
+      <Dropdown selected={platform} onChange={setPlatform} />
       <div className="flex flex-col gap-[24px]">
         <div className="gap-[8px] flex flex-col">
           <label
@@ -69,7 +70,7 @@ const LinkCard: FC<{
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="e.g. https://www.github.com/johnappleseed"
-              className={`pl-[44px] pr-[16px] py-[12px] rounded-lg w-[688px] focus:shadow-xl relative border-border-color focus:outline-primary-color  text-[16px] h-[48px] border ${
+              className={`pl-[44px] pr-[16px] py-[12px] rounded-lg w-[688px] focus:shadow-xl relative border-border-color focus:outline-primary-color text-[16px] h-[48px] border ${
                 error ? "border-red-500" : "border"
               }`}
             />

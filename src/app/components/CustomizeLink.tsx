@@ -4,9 +4,20 @@ import Empty from "./Empty";
 import LinkCard from "./LinkCard";
 import Image from "next/image";
 import {
-  LinkPreview1, LinkPreview2, LinkPreview3, LinkPreview4, LinkPreview5, 
-  LinkPreview6, LinkPreview7, LinkPreview8, LinkPreview9, LinkPreview10, 
-  LinkPreview11, LinkPreview12, LinkPreview13, LinkPreview14 
+  LinkPreview1,
+  LinkPreview2,
+  LinkPreview3,
+  LinkPreview4,
+  LinkPreview5,
+  LinkPreview6,
+  LinkPreview7,
+  LinkPreview8,
+  LinkPreview9,
+  LinkPreview10,
+  LinkPreview11,
+  LinkPreview12,
+  LinkPreview13,
+  LinkPreview14,
 } from "./LinkPreview";
 
 const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
@@ -61,7 +72,6 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
     }
   };
 
-  // CREATE: Add new link, limited to 5
   const handleAddLink = () => {
     if (links.length < 5) {
       setLinks([...links, { id: linkCount + 1, url: "", platform: null }]);
@@ -69,20 +79,17 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
     }
   };
 
-  // UPDATE: Save link details
   const handleSaveLink = (id: number, url: string, platform: any) => {
     setLinks(
       links.map((link) => (link.id === id ? { ...link, url, platform } : link))
     );
   };
 
-  // DELETE: Remove a link
   const handleRemoveLink = (id: number) => {
     const newLinks = links.filter((link) => link.id !== id);
     setLinks(newLinks);
   };
 
-  // Save all links and profile details
   const handleSaveAllLinks = async () => {
     const newErrors: { [key: number]: string } = {};
 
@@ -99,10 +106,8 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
 
     setErrors({});
 
-    // Perform the save operation for links
     console.log("Links saved:", links);
 
-    // Perform the save operation for profile details
     if (file && isFormValid) {
       const formData = new FormData();
       formData.append("file", file);
