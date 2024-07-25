@@ -11,7 +11,7 @@ import Image from "next/image";
 import Button from "./common/buttons/Secondary";
 import Empty from "./Empty";
 import LinkCard from "./LinkCard";
-import LinkPreview from "./LinkPreview"; // Make sure to import LinkPreview
+// import LinkPreview from "./LinkPreview"; // Make sure to import LinkPreview
 
 const socials = [
   {
@@ -353,6 +353,7 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
                           onRemove={handleRemoveLink}
                           onSave={handleSaveLink}
                           error={errors[link.id]}
+                          onPlatformChange={(link.selectedPlatform)}
                         />
                       ))
                     )}
