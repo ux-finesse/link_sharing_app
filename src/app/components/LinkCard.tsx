@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import Dropdown from "./Dropdown";
+import Dropdown from "./DropDown";
 import Image from "next/image";
 
 const LinkCard: FC<{
