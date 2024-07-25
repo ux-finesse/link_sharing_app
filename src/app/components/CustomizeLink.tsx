@@ -1,14 +1,120 @@
+/* eslint-disable @next/next/no-img-element */
 
-import { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from "@headlessui/react";
+import Image from "next/image";
 import Button from "./common/buttons/Secondary";
 import Empty from "./Empty";
 import LinkCard from "./LinkCard";
-import Image from "next/image";
+import LinkPreview from "./LinkPreview"; // Make sure to import LinkPreview
+
+const socials = [
+  {
+    id: 1,
+    name: "GitHub",
+    icon: "/github.svg",
+    color: "#181717",
+  },
+  {
+    id: 2,
+    name: "Frontend Mentor",
+    icon: "/ftmen.svg",
+    color: "#F8F9FA",
+  },
+  { id: 3, name: "Twitter", icon: "/twitter.svg", color: "#1DA1F2" },
+  { id: 4, name: "LinkedIn", icon: "/linkedin.svg", color: "#0077B5" },
+  { id: 5, name: "YouTube", icon: "/youtube.svg", color: "#FF0000" },
+  { id: 6, name: "Facebook", icon: "/facebook.svg", color: "#1877F2" },
+  { id: 7, name: "Twitch", icon: "/twitch.svg", color: "#9146FF" },
+  { id: 8, name: "Dev.to", icon: "/devto.svg", color: "#0A0A0A" },
+  { id: 9, name: "Codewars", icon: "/codewars.svg", color: "#AD2C27" },
+  { id: 10, name: "Codepen", icon: "/codepen.svg", color: "#000000" },
+  {
+    id: 11,
+    name: "freeCodeCamp",
+    icon: "/freecodecamp.svg",
+    color: "#006400",
+  },
+  { id: 12, name: "GitLab", icon: "/gitlab.svg", color: "#FC6D26" },
+  { id: 13, name: "Hashnode", icon: "/hashnode.svg", color: "#2962FF" },
+  {
+    id: 14,
+    name: "Stack Overflow",
+    icon: "/stack.svg",
+    color: "#F48024",
+  },
+];
+
+const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
+  selected,
+  onChange,
+}) => {
+  return (
+    <Listbox value={selected} onChange={onChange}>
+      <div className="relative">
+        <label className="text-[12px] font-IntSans text-dark-grey">
+          Platform
+        </label>
+        <ListboxButton className="relative w-full h-[48px] mt-[4px] cursor-default rounded-lg bg-white py-1.5 pl-[16px] pr-[16px] text-left text-dark-grey shadow-sm ring-1 ring-inset ring-gray-300 focus:shadow-xl focus:outline-primary-color focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6 border-border-color">
+          <span className="flex items-center">
+            {selected && (
+              <img
+                alt={selected.name}
+                src={selected.icon}
+                className="h-5 w-5 flex-shrink-0 rounded-full"
+              />
+            )}
+            <span className="ml-3 block truncate">
+              {selected ? selected.name : "Select a platform"}
+            </span>
+          </span>
+          <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-[16px]">
+            <svg
+              width="14"
+              height="9"
+              viewBox="0 0 14 9"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M1 1L7 7L13 1" stroke="#633CFF" strokeWidth="2" />
+            </svg>
+          </span>
+        </ListboxButton>
+        <ListboxOptions className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          {socials.map((social) => (
+            <ListboxOption
+              key={social.id}
+              value={social}
+              className="group relative cursor-default select-none py-2 pr-[16px] pl-[16px] text-gray-900"
+            >
+              <div className="flex items-center">
+                <img
+                  alt={social.name}
+                  src={social.icon}
+                  className="h-5 w-5 flex-shrink-0 rounded-full group-hover:scale-110  transition-transform duration-150"
+                />
+                <span className="ml-3 block truncate font-normal group-data-[selected]:font-semibold hover:text-primary-color">
+                  {social.name}
+                </span>
+              </div>
+            </ListboxOption>
+          ))}
+        </ListboxOptions>
+      </div>
+    </Listbox>
+  );
+};
 
 const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
   const [links, setLinks] = useState<any[]>([]);
   const [linkCount, setLinkCount] = useState(0);
   const [errors, setErrors] = useState<{ [key: number]: string }>({});
+  const [previews, setPreviews] = useState<{ [key: number]: any }>({});
 
   const [formValues, setFormValues] = useState({
     firstname: "",
@@ -70,6 +176,7 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
     setLinks(
       links.map((link) => (link.id === id ? { ...link, url, platform } : link))
     );
+    setPreviews({ ...previews, [id]: platform });
   };
 
   // DELETE: Remove a link
@@ -122,105 +229,93 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
     }
   };
 
+  // Map of ID to corresponding LinkPreview component
+  const renderLinkPreview = (id: number) => {
+    const platform = previews[id];
+    if (!platform) return null;
+
+    switch (platform.id) {
+      case 1:
+        return (
+          <div className="bg-[#1a1a1a] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg">
+            <div className="flex flex-row items-center gap-[8px]">
+              <Image
+                src="/icons/teenyicons_github-solid.svg"
+                alt="app-logo"
+                width={20}
+                height={20}
+              />
+              <p className="text-white font-[400] leading-[24px] text-[16px]">
+                GitHub
+              </p>
+            </div>
+            <Image
+              src="/icons/mdi_arrow-right.svg"
+              alt="app-logo"
+              width={16}
+              height={16}
+            />
+          </div>
+        );
+      case 5:
+        return (
+          <div className="bg-[#FF0000] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg">
+            <div className="flex flex-row items-center gap-[8px]">
+              <Image
+                src="/icons/teenyicons_youtube-solid.svg"
+                alt="app-logo"
+                width={20}
+                height={20}
+              />
+              <p className="text-white font-[400] leading-[24px] text-[16px]">
+                YouTube
+              </p>
+            </div>
+            <Image
+              src="/icons/mdi_arrow-right.svg"
+              alt="app-logo"
+              width={16}
+              height={16}
+            />
+          </div>
+        );
+      // Add other cases for different platforms here
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <main className="w-full flex flex-row gap-[24px] px-[24px] pb-[24px] bg-light-grey justify-center items-start">
         <section className="w-[560px] h-[834px] bg-white flex items-center justify-center">
           <div className="flex items-center justify-center">
-            {/* <div className="w-[285px] h-[611px] bg-black items-center justify-between flex flex-col py-[43.5px] px-[23.5px]">
+            <div className="w-[285px] h-[611px] bg-white border border-border-color items-center justify-between flex flex-col py-[43.5px] px-[23.5px]">
               <div className="items-center justify-center flex flex-col gap-[20px]">
                 <div
                   id="avatar"
-                  className="w-[96px] h-[96px] bg-white rounded-full"
+                  className="w-[96px] h-[96px] bg-[#EEEEEE] rounded-full"
                 ></div>
                 <div
                   id="name"
-                  className="w-[160px] h-[16px] bg-white rounded-full"
+                  className="w-[160px] h-[16px] bg-[#EEEEEE] rounded-full"
                 ></div>
                 <div
                   id="email"
-                  className="w-[72px] h-[8px] bg-white rounded-full"
+                  className="w-[72px] h-[8px] bg-[#EEEEEE] rounded-full"
                 ></div>
               </div>
 
               <div className="items-center justify-center flex flex-col gap-[20px]">
-                <div
-                  id="link1"
-                  className="w-[237px] h-[44px] bg-white rounded-lg"
-                ></div>
-                <div
-                  id="link2"
-                  className="w-[237px] h-[44px] bg-white rounded-lg"
-                ></div>
-                <div
-                  id="link3"
-                  className="w-[237px] h-[44px] bg-white rounded-lg"
-                ></div>
-                <div
-                  id="link4"
-                  className="w-[237px] h-[44px] bg-white rounded-lg"
-                ></div>
-                <div
-                  id="link5"
-                  className="w-[237px] h-[44px] bg-white rounded-lg"
-                ></div>
+                {Array.from({ length: 5 }, (_, index) => (
+                  <div key={index} id={`link${index + 1}`}>
+                    {renderLinkPreview(index + 1) || (
+                      <div className="w-[237px] h-[44px] bg-[#EEEEEE] rounded-lg"></div>
+                    )}
+                  </div>
+                ))}
               </div>
-            </div> */}
-            <svg
-              width="308"
-              height="632"
-              viewBox="0 0 308 632"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 54.5C1 24.9528 24.9528 1 54.5 1H253.5C283.047 1 307 24.9528 307 54.5V577.5C307 607.047 283.047 631 253.5 631H54.5C24.9528 631 1 607.047 1 577.5V54.5Z"
-                stroke="#737373"
-              />
-              <path
-                d="M12 55.5C12 30.9233 31.9233 11 56.5 11H80.5C86.8513 11 92 16.1487 92 22.5C92 30.5081 98.4919 37 106.5 37H201.5C209.508 37 216 30.5081 216 22.5C216 16.1487 221.149 11 227.5 11H251.5C276.077 11 296 30.9233 296 55.5V576.5C296 601.077 276.077 621 251.5 621H56.5C31.9233 621 12 601.077 12 576.5V55.5Z"
-                fill="white"
-                stroke="#737373"
-              />
-              <circle cx="153.5" cy="112" r="48" fill="#EEEEEE" />
-              <rect
-                x="73.5"
-                y="185"
-                width="160"
-                height="16"
-                rx="8"
-                fill="#EEEEEE"
-              />
-              <rect
-                x="117.5"
-                y="214"
-                width="72"
-                height="8"
-                rx="4"
-                fill="#EEEEEE"
-              />
-              {links.map((link, index) => (
-                <g key={link.id}>
-                  <rect
-                    x="35"
-                    y={278 + 64 * index}
-                    width="237"
-                    height="44"
-                    rx="8"
-                    fill={link.platform ? link.platform.color : "#EEEEEE"}
-                  />
-                  {link.platform && (
-                    <image
-                      x="50"
-                      y={282 + 64 * index}
-                      width="30"
-                      height="30"
-                      href={link.platform.icon}
-                    />
-                  )}
-                </g>
-              ))}
-            </svg>
+            </div>
           </div>
         </section>
 
@@ -431,3 +526,4 @@ const CustomizeLink: FC<{ selectedTab: string }> = ({ selectedTab }) => {
 };
 
 export default CustomizeLink;
+
