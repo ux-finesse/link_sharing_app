@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { useAuth } from "../lib/useAuth";
 import Link from "next/link";
 import Button from "../components/common/buttons/Primary";
 import NavBar from "../components/layouts/NavBar";
 import CustomizeLink from "../components/CustomizeLink";
 
-const Dashboard: React.FC = () => {
+const Dashboard: FC = () => {
   const { user, loading } = useAuth();
 
   const [selectedTab, setSelectedTab] = useState("links");

@@ -1,10 +1,10 @@
-import React from "react";
+import React, {FC} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Button from "../common/buttons/Secondary";
 import TabButton from "../common/buttons/TabButton";
 
-const NavBar: React.FC<{
+const NavBar: FC<{
   selectedTab: string;
   setSelectedTab: (tab: string) => void;
 }> = ({ selectedTab, setSelectedTab }) => {
@@ -16,13 +16,15 @@ const NavBar: React.FC<{
     <>
       <nav className="w-full p-[24px]">
         <div className="w-full px-[24px] py-[16px] bg-white flex items-center justify-between">
-          <Image
-            src="/logo.svg"
-            alt="app-logo"
-            width={146}
-            height={32}
-            className="sm:flex sm:justify-start sm:items-left"
-          />
+          <Link href="/home">
+            <Image
+              src="/logo.svg"
+              alt="app-logo"
+              width={146}
+              height={32}
+              className="sm:flex sm:justify-start sm:items-left"
+            />
+          </Link>
           <div className="flex gap-[16px]">
             <TabButton
               id="links"
@@ -73,9 +75,11 @@ const NavBar: React.FC<{
               Profile Details
             </TabButton>
           </div>
-          <Button className="rounded-lg w-[114px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]">
-            Preview
-          </Button>
+          <Link href="/preview">
+            <Button className="rounded-lg w-[114px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]">
+              Preview
+            </Button>
+          </Link>
         </div>
       </nav>
     </>
