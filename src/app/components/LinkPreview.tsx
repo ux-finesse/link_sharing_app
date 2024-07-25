@@ -5,7 +5,7 @@ const LinkPreview1: FC = () => {
   return (
     <div
       id="1"
-      className="bg-[#1a1a1a] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#1a1a1a] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
@@ -14,7 +14,7 @@ const LinkPreview1: FC = () => {
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           GitHub
         </p>
       </div>
@@ -32,20 +32,16 @@ const LinkPreview2: FC = () => {
   return (
     <div
       id="2"
-      className="bg-[#1a1a1a] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg">
+      className="bg-[#ffffff] w-[237px] justify-between flex border border-border-color h-[44px] p-[16px] rounded-lg"
+    >
       <div className="flex flex-row items-center gap-[8px]">
-        <Image
-          src="/icons/teenyicons_frontendmentor-solid.svg"
-          alt="app-logo"
-          width={20}
-          height={20}
-        />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <Image src="/icons/fm.svg" alt="app-logo" width={20} height={20} />
+        <p className=" text-dark-grey font-[400] leading-[24px] text-[14px]">
           Frontend Mentor
         </p>
       </div>
       <Image
-        src="/icons/mdi_arrow-right.svg"
+        src="/icons/mdi_arrow-right-drk.svg"
         alt="app-logo"
         width={16}
         height={16}
@@ -58,16 +54,16 @@ const LinkPreview3: FC = () => {
   return (
     <div
       id="3"
-      className="bg-[#1a1a1a] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#43B7E9] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_twitter-solid.svg"
+          src="/icons/mdi_twitter.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Twitter
         </p>
       </div>
@@ -85,16 +81,16 @@ const LinkPreview4: FC = () => {
   return (
     <div
       id="4"
-      className="bg-[#1a1a1a] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#2D68FF] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_linkedin-solid.svg"
+          src="/icons/mdi_linkedin.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           LinkedIn
         </p>
       </div>
@@ -112,16 +108,16 @@ const LinkPreview5: FC = () => {
   return (
     <div
       id="5"
-      className="bg-[#FF0000] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#EE3939] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_youtube-solid.svg"
+          src="/icons/ri_youtube-fill.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           YouTube
         </p>
       </div>
@@ -141,16 +137,16 @@ const LinkPreview6: FC = () => {
   return (
     <div
       id="6"
-      className="bg-[#1877F2] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#2442AC] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_facebook-solid.svg"
+          src="/icons/bi_facebook.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Facebook
         </p>
       </div>
@@ -168,16 +164,16 @@ const LinkPreview7: FC = () => {
   return (
     <div
       id="7"
-      className="bg-[#9146FF] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#EE3FC8] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_twitch-solid.svg"
+          src="/icons/mdi_twitch.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Twitch
         </p>
       </div>
@@ -195,16 +191,16 @@ const LinkPreview8: FC = () => {
   return (
     <div
       id="8"
-      className="bg-[#0A0A0A] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#333333] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_devto-solid.svg"
+          src="/icons/skill-icons_devto-dark.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Dev.to
         </p>
       </div>
@@ -222,16 +218,16 @@ const LinkPreview9: FC = () => {
   return (
     <div
       id="9"
-      className="bg-[#AD2C27] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#8A1A50] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_codewars-solid.svg"
+          src="/icons/cib_codewars.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Codewars
         </p>
       </div>
@@ -249,16 +245,16 @@ const LinkPreview10: FC = () => {
   return (
     <div
       id="10"
-      className="bg-[#000000] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#000000] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_codepen-solid.svg"
+          src="/icons/ri_codepen-line.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Codepen
         </p>
       </div>
@@ -276,17 +272,12 @@ const LinkPreview11: FC = () => {
   return (
     <div
       id="11"
-      className="bg-[#006400] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#302267] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
-        <Image
-          src="/icons/teenyicons_freecodecamp-solid.svg"
-          alt="app-logo"
-          width={20}
-          height={20}
-        />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
-          freeCodeCamp
+        <Image src="/icons/fcc.svg" alt="app-logo" width={20} height={20} />
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
+          FreeCodeCamp
         </p>
       </div>
       <Image
@@ -303,16 +294,16 @@ const LinkPreview12: FC = () => {
   return (
     <div
       id="12"
-      className="bg-[#FC6D26] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#EB4925] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_gitlab-solid.svg"
+          src="/icons/ri_gitlab-fill.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           GitLab
         </p>
       </div>
@@ -330,16 +321,16 @@ const LinkPreview13: FC = () => {
   return (
     <div
       id="13"
-      className="bg-[#2962FF] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#0330D1] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_hashnode-solid.svg"
+          src="/icons/fa6-brands_hashnode.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Hashnode
         </p>
       </div>
@@ -357,16 +348,16 @@ const LinkPreview14: FC = () => {
   return (
     <div
       id="14"
-      className="bg-[#F48024] w-[237px] justify-between flex h-[56px] p-[16px] rounded-lg"
+      className="bg-[#EC7100] w-[237px] justify-between flex h-[44px] p-[16px] rounded-lg"
     >
       <div className="flex flex-row items-center gap-[8px]">
         <Image
-          src="/icons/teenyicons_stackoverflow-solid.svg"
+          src="/icons/cib_stackoverflow.svg"
           alt="app-logo"
           width={20}
           height={20}
         />
-        <p className="text-white font-[400] leading-[24px] text-[16px]">
+        <p className="text-white font-[400] leading-[24px] text-[14px]">
           Stack Overflow
         </p>
       </div>
