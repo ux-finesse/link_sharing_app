@@ -27,7 +27,6 @@ const PreviewContent: FC = () => {
   const searchParams = useSearchParams();
   const key = searchParams.get("key");
 
-  const [selectedTab, setSelectedTab] = useState<string>("links");
   const [links, setLinks] = useState<any[]>([]);
   const [formValues, setFormValues] = useState({
     firstname: "",
@@ -131,7 +130,7 @@ const PreviewContent: FC = () => {
         </div>
       </nav>
       <section className="bg-primary-color w-full h-[357px] absolute top-0 z-[-1] rounded-b-[32px]">
-        <div className="w-[349px] rounded-3xl h-[569px] absolute bg-white items-center justify-center top-[208px] top-1/2 left-1/2 transform -translate-x-1/2 flex mx-auto">
+        <div className="w-[349px] rounded-3xl h-[569px] absolute bg-white flex flex-col justify-start items-center gap-[30px] top-[208px] p-[40px] top-1/2 left-1/2 transform -translate-x-1/2 flex mx-auto">
           <div className="items-center justify-center flex flex-col gap-[20px]">
             <div
               id="avatar"
@@ -152,7 +151,8 @@ const PreviewContent: FC = () => {
             </div>
             <div
               id="name"
-              className="min-w-[160px] max-w-full h-[16px] bg-[#EEEEEE] rounded-full transition-opacity duration-300 flex items-center justify-center"
+              className="min-w-[160px] max-w-full h-[16px] transition-opacity duration-300 flex items-center justify-center"
+              
             >
               <p className="text-[18px] text-dark-grey font-IntSans text-center font-[600] leading-[27px]">
                 {formValues.firstname} {formValues.lastname}
@@ -160,7 +160,7 @@ const PreviewContent: FC = () => {
             </div>
             <div
               id="email"
-              className="min-w-[72px] max-w-full h-[16px] bg-[#EEEEEE] rounded-full transition-opacity duration-300 flex items-center justify-center"
+              className="min-w-[72px] max-w-full h-[16px] transition-opacity duration-300 flex items-center justify-center"
             >
               <p className="text-[14px] text-grey-color font-IntSans text-center font-[400] leading-[21px]">
                 {formValues.email}
