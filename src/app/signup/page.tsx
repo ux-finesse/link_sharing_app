@@ -224,9 +224,9 @@ const SignUp: FC = () => {
             Already have an account?
           </p>
           <Link href="/login">
-            <a className="text-primary-color text-[16px] font-IntSans font-[400] leading-[24px] hover:underline cursor-pointer">
+            <p className="text-primary-color text-[16px] font-IntSans font-[400] leading-[24px] hover:underline cursor-pointer">
               Login
-            </a>
+            </p>
           </Link>
         </div>
       </form>

@@ -19,7 +19,7 @@ import {
   LinkPreview12,
   LinkPreview13,
   LinkPreview14,
-} from "../components/LinkPreview"; // Adjust the import based on your file structure
+} from "../components/LinkPreview";
 
 const Preview: FC = () => {
   const searchParams = useSearchParams();

@@ -1,8 +1,6 @@
 "use client";
 import React, { FC, useState, useEffect } from "react";
 import { useAuth } from "../lib/useAuth";
-import Link from "next/link";
-import Button from "../components/common/buttons/Primary";
 import NavBar from "../components/layouts/NavBar";
 import CustomizeLink from "../components/CustomizeLink";
 import { useSearchParams } from "next/navigation";
