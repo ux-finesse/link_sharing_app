@@ -4,13 +4,16 @@ import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_APIKEY,
-  authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
-  projectId: process.env.NEXT_PUBLIC_PROJECTID,
-  storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
-  appId: process.env.NEXT_PUBLIC_APPID,
+  apiKey: "AIzaSyCGO4VKVkmPy3hTVvVYlTGsl9T7WIPZAnQ",
+  authDomain: "link-sharing-app-ec327.firebaseapp.com",
+  databaseURL: "https://link-sharing-app-ec327-default-rtdb.firebaseio.com",
+  projectId: "link-sharing-app-ec327",
+  storageBucket: "link-sharing-app-ec327.appspot.com",
+  messagingSenderId: "469168442942",
+  appId: "1:469168442942:web:3b22146740d1a924280b6f",
+  measurementId: "G-894TYKZFS7",
 };
+
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
