@@ -31,8 +31,8 @@ const LinkCard: FC<{
   }, [url, platform]);
 
   return (
-    <div className="w-[728px] h-[248px] rounded-lg bg-light-grey p-[20px] flex flex-col gap-[12px]">
-      <div className="w-full flex justify-between items-center">
+    <div className="lg:w-[728px] h-[248px] rounded-lg bg-light-grey p-[20px] sm:w-[640px] flex flex-col gap-[12px]">
+      <div className="lg:w-full flex justify-between items-center sm:w-[600px]">
         <div className="flex justify-center items-center gap-[8px]">
           <svg
             width="12"
@@ -70,7 +70,7 @@ const LinkCard: FC<{
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="e.g. https://www.github.com/johnappleseed"
-              className={`pl-[44px] pr-[16px] py-[12px] rounded-lg w-[688px] focus:shadow-xl relative border-border-color focus:outline-primary-color text-[16px] h-[48px] border ${
+              className={`pl-[44px] pr-[16px] py-[12px] rounded-lg lg:w-[688px] sm:w-[600px] xs:w-[255px] focus:shadow-xl relative border-border-color focus:outline-primary-color text-[16px] h-[48px] border ${
                 error ? "border-red-500" : "border"
               }`}
             />

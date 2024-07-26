@@ -210,11 +210,11 @@ const CustomizeLink: FC<{
 
   return (
     <>
-      <main className="w-full flex flex-row gap-[24px] px-[24px] pb-[24px] bg-light-grey justify-center items-start">
-        <section className="w-[560px] h-[834px] bg-white flex items-center justify-center">
+      <main className="w-full flex flex-row gap-[24px] lg:px-[24px] lg:pb-[24px] sm:px-[24px] sm:pb-[24px] xs:pb-[24px] bg-light-grey justify-center items-start sm:px-0">
+        <section className="lg:w-full h-[834px] bg-white items-center justify-center sm:hidden xs:hidden lg:flex">
           <div className="flex items-center justify-center">
             <div className="relative">
-              <div className="w-[285px] h-[611px] bg-white items-center justify-between flex flex-col py-[43.5px] px-[23.5px]">
+              <div className="lg:w-[285px] h-[611px] bg-white items-center justify-between flex flex-col py-[43.5px] px-[23.5px]">
                 <div className="items-center justify-center flex flex-col gap-[20px]">
                   <div
                     id="avatar"
@@ -287,15 +287,15 @@ const CustomizeLink: FC<{
           </div>
         </section>
 
-        <section>
-          <div className="w-[808px] h-[739px] gap-[40px] flex bg-white flex-col p-[40px] relative">
+        <section className="sm:w-full sm:flex sm:flex-col sm:justify-center sm:items-center xs:flex xs:flex-col xs:justify-center xs:items-center sm:p-0 xs:p-0 lg:p-0 xs:h-[922px]">
+          <div className="lg:w-[808px] lg:h-[739px] sm:h-[739px] xs:h-[861px] gap-[40px] flex bg-white flex-col lg:p-[40px] relative sm:w-full xs:w-[343px] xs:p-[24px]">
             {selectedTab === "links" && (
               <div id="createlink" className="absolute">
                 <div className="gap-[8px] flex flex-col">
-                  <h3 className="leading-[48px] text-[32px] font-[600] font-IntSans">
+                  <h3 className="leading-[48px] lg:text-[32px] xs:text-[24px] font-[600] font-IntSans">
                     Customize your links
                   </h3>
-                  <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
+                  <p className="text-[16px] xs:w-[295px] lg:w-full text-grey-color font-IntSans font-[400] leading-[24px]">
                     Add/edit/remove links below and then share all your profiles
                     with the world!
                   </p>
@@ -304,7 +304,7 @@ const CustomizeLink: FC<{
                   <Button
                     onClick={handleAddLink}
                     disabled={links.length >= 5}
-                    className="rounded-lg w-[728px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]"
+                    className="rounded-lg lg:w-[728px] sm:w-[641px] xs:w-[295px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]"
                   >
                     + Add new link
                   </Button>
@@ -335,16 +335,16 @@ const CustomizeLink: FC<{
                   <h3 className="leading-[48px] text-[32px] font-[600] font-IntSans">
                     Profile Details
                   </h3>
-                  <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
+                  <p className="text-[16px] text-grey-color font-IntSans font-[400] lg:w-[640px] sm:w-[640px] xs:w-[295px] leading-[24px]">
                     Add your details to create a personal touch to your profile.
                   </p>
                 </div>
                 <div className="gap-[24px] flex flex-col mt-[40px]">
-                  <div className="w-[728px] h-[233px] flex flex-row bg-light-grey rounded-lg justify-between items-center gap-[24px] p-[20px]">
+                  <div className="lg:w-[728px] lg:h-[233px] sm:h-[233px] xs:h-[363px] sm:w-[640px] xs:w-[295px] flex xs:flex-col lg:flex-row sm:flex-row bg-light-grey rounded-lg lg:justify-between lg:items-center sm:justify-between sm:items-center xs:justify-start xs:items-start xs:gap-[16px] gap-[24px] xs:p-[20px]">
                     <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
                       Profile picture
                     </p>
-                    <div className="flex flex-row bg-light-grey justify-between items-center gap-[24px]">
+                    <div className="flex lg:flex-row sm:flex-row xs:flex-col bg-light-grey justify-between lg:items-center sm:items-center xs:items-start gap-[24px]">
                       <div className="w-[215px] h-[215px] flex flex-col gap-[8px] bg-secondary-hover rounded-lg justify-center items-center relative overflow-hidden group">
                         <input
                           type="file"
@@ -383,7 +383,7 @@ const CustomizeLink: FC<{
                           Choose Image
                         </div>
                       </div>
-                      <p className="font-[400] text-[12px] text-grey-color w-[215px]">
+                      <p className="font-[400] sm:w-[127px] text-[12px] text-grey-color lg:w-[215px]">
                         Image must be below 1024x1024px. Use PNG or JPG format.
                       </p>
                     </div>
@@ -391,10 +391,10 @@ const CustomizeLink: FC<{
 
                   <div
                     id="form"
-                    className="w-[728px] h-[208px] rounded-lg bg-light-grey p-[20px]"
+                    className="lg:w-[728px] lg:h-[208px] lg:h-[208px] xs:h-[274px]rounded-lg bg-light-grey p-[20px] sm:w-[640px]"
                   >
-                    <form action="" className="flex flex-col gap-[12px]">
-                      <div className="flex flex-row items-center justify-between relative">
+                    <form action="" className="flex flex-col gap-[12px] h">
+                      <div className="flex lg:flex-row sm:flex-row xs:flex-col  lg:items-center sm:items-center justify-between xs:items-start relative">
                         <label
                           htmlFor="firstname"
                           className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]"
@@ -408,7 +408,7 @@ const CustomizeLink: FC<{
                             placeholder="e.g. John"
                             value={formValues.firstname}
                             onChange={handleInputChange}
-                            className={`w-[432px] focus:shadow-xl rounded-lg text-[16px] px-[16px] py-[12px] h-[48px] border ${
+                            className={`lg:w-[432px] sm:w-[432px] xs:w-[255px] focus:shadow-xl rounded-lg text-[16px] px-[16px] py-[12px] h-[48px] border ${
                               formErrors.firstname
                                 ? "border-red-500"
                                 : "border-border-color"
@@ -422,7 +422,7 @@ const CustomizeLink: FC<{
                         </div>
                       </div>
 
-                      <div className="flex flex-row items-center justify-between relative">
+                      <div className="flex lg:flex-row sm:flex-row xs:flex-col lg:items-center sm:items-center justify-between xs:items-start relative">
                         <label
                           htmlFor="lastname"
                           className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]"
@@ -436,7 +436,7 @@ const CustomizeLink: FC<{
                             placeholder="e.g. Appleseed"
                             value={formValues.lastname}
                             onChange={handleInputChange}
-                            className={`w-[432px] focus:shadow-xl rounded-lg text-[16px] px-[16px] py-[12px] h-[48px] border ${
+                            className={`lg:w-[432px] sm:w-[432px] xs:w-[255px] focus:shadow-xl rounded-lg text-[16px] px-[16px] py-[12px] h-[48px] border ${
                               formErrors.lastname
                                 ? "border-red-500"
                                 : "border-border-color"
@@ -450,7 +450,7 @@ const CustomizeLink: FC<{
                         </div>
                       </div>
 
-                      <div className="flex flex-row items-center justify-between relative">
+                      <div className="flex lg:flex-row sm:flex-row xs:flex-col lg:items-center sm:items-center justify-between xs:items-start relative">
                         <label
                           htmlFor="email"
                           className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]"
@@ -464,7 +464,7 @@ const CustomizeLink: FC<{
                             placeholder="e.g. john@example.com"
                             value={formValues.email}
                             onChange={handleInputChange}
-                            className={`w-[432px] focus:shadow-xl rounded-lg text-[16px] px-[16px] py-[12px] h-[48px] border ${
+                            className={`lg:w-[432px] sm:w-[432px] xs:w-[255px] focus:shadow-xl rounded-lg text-[16px] px-[16px] py-[12px] h-[48px] border ${
                               formErrors.email
                                 ? "border-red-500"
                                 : "border-border-color"
@@ -483,12 +483,12 @@ const CustomizeLink: FC<{
               </div>
             )}
           </div>
-          <div className="border-t border-t-border-color w-[808px] h-[94px] bg-white px-[40px] py-[24px] flex justify-end">
+          <div className="border-t sm:w-[721px] xs:w-[343px] border-t-border-color lg:w-[808px] h-[94px] bg-white lg:px-[40px] lg:py-[24px] xs:p-[16px] flex justify-end">
             <Button
               id="save"
               onClick={handleSaveAllLinks}
               disabled={!isFormValid && links.length === 0}
-              className={`rounded-lg w-[91px] h-[46px] bg-primary-color px-[27px] text-white py-[11px] hover-secondary-hover ${
+              className={`rounded-lg lg:w-[91px] xs:w-full  h-[46px] bg-primary-color px-[27px] text-white py-[11px] hover-secondary-hover ${
                 !isFormValid && links.length === 0
                   ? "opacity-50 cursor-not-allowed"
                   : "opacity-100 hover:bg-primary-hover"

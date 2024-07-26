@@ -37,7 +37,7 @@ const NavBar: FC<{
 
   return (
     <>
-      <nav className="w-full p-[24px]">
+      <nav className="w-full p-[24px] xs:p-0 sm:p-[24px] xs:pb-[16px]  ">
         <div className="w-full px-[24px] py-[16px] bg-white flex items-center justify-between">
           <Link href="/home">
             <Image
@@ -45,14 +45,21 @@ const NavBar: FC<{
               alt="app-logo"
               width={146}
               height={32}
-              className="sm:flex sm:justify-start sm:items-left"
+              className="sm:flex sm:justify-start sm:items-left xs:hidden"
+            />
+            <Image
+              src="/logoicon.svg"
+              alt="app-logo"
+              width={32}
+              height={32}
+              className="sm:flex sm:justify-start sm:items-left xs:flex sm:hidden lg:hidden"
             />
           </Link>
-          <div className="flex gap-[16px]">
+          <div className="flex gap-[16px] xs:gap-0">
             <TabButton
               id="links"
               onClick={() => handleTabClick("links")}
-              className={`rounded-lg flex gap-[8px] justify-center items-center w-[130px] h-[46px] px-[27px] py-[11px] ${
+              className={`rounded-lg flex gap-[8px] justify-center items-center lg:w-[130px] xs:w-[74px] lg:h-[46px] xs:h-[42px]  px-[27px] py-[11px] ${
                 selectedTab === "links"
                   ? "bg-primary-hover text-primary-color"
                   : "bg-white text-grey-color"
@@ -70,13 +77,13 @@ const NavBar: FC<{
                   fill="currentColor"
                 />
               </svg>
-              Links
+              <p className="xs:hidden lg:flex">Links</p>
             </TabButton>
 
             <TabButton
               id="profile"
               onClick={() => handleTabClick("profile")}
-              className={`rounded-lg flex gap-[8px] justify-center items-center w-[191px] h-[46px] px-[27px] py-[11px] ${
+              className={`rounded-lg flex gap-[8px] justify-center items-center lg:w-[191px] xs:w-[74px] lg:h-[46px] xs:h-[42px] px-[27px] py-[11px] ${
                 selectedTab === "profile"
                   ? "bg-primary-hover text-primary-color"
                   : "bg-white text-grey-color"
@@ -95,14 +102,26 @@ const NavBar: FC<{
                   fill="currentColor"
                 />
               </svg>
-              Profile Details
+              <p className="xs:hidden lg:flex">Profile Details</p>
             </TabButton>
           </div>
           <Button
-            className="rounded-lg w-[114px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]"
+            className="rounded-lg w-[114px] xs:hidden sm:flex h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]"
             onClick={handlePreviewClick}
           >
             Preview
+          </Button>
+          <Button
+            className="rounded-lg w-[52px] lg:hidden sm:hidden h-[42px] bg-white px-[16px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]"
+            onClick={handlePreviewClick}
+          >
+            <Image
+              src="/ph_eye-bold.svg"
+              alt="app-logo"
+              width={20}
+              height={20}
+              className="sm:flex sm:justify-start sm:items-left"
+            />
           </Button>
         </div>
       </nav>

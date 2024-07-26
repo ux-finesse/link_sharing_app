@@ -1,26 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../lib/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { app } from "../../lib/firebase"; // Ensure this path is correct
+
+const auth = getAuth(app);
 
 export async function POST(req: NextRequest) {
-  const { email, password } = await req.json();
-
   try {
+    const { email, password } = await req.json();
+    console.log("Received data:", { email, password });
+
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
     const user = userCredential.user;
+
     return NextResponse.json(
       { uid: user.uid, email: user.email },
       { status: 201 }
     );
   } catch (error) {
     console.error("Error creating user:", error);
-    return NextResponse.json(
-      { error: (error as Error).message },
-      { status: 500 }
-    );
+    let errorMessage = "Registration failed";
+    if ((error as any).code === "auth/email-already-in-use") {
+      errorMessage = "Account Exists";
+    } else if ((error as any).code === "auth/invalid-email") {
+      errorMessage = "Invalid email address.";
+    } else if ((error as any).code === "auth/weak-password") {
+      errorMessage = "Password is too weak.";
+    }
+    return NextResponse.json({ error: errorMessage }, { status: 400 });
   }
 }

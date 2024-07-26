@@ -30,9 +30,12 @@ const LogIn: FC = () => {
       try {
         await signInWithEmailAndPassword(auth, email, password);
         router.push("/welcome"); // Redirect to welcome screen on successful login
+        toast.success("Successfully logged in.", { theme: "light" });
       } catch (error) {
         console.error(error);
-        toast.error("Failed to login. Please check your credentials.");
+        toast.error("Failed to login. Please check your credentials.", {
+          theme: "light",
+        });
       } finally {
         setLoading(false);
       }
@@ -55,23 +58,23 @@ const LogIn: FC = () => {
 
   return (
     <>
-      <main className="flex flex-col items-center min-h-screen justify-center gap-[50px]">
+      <main className="flex flex-col lg:items-center min-h-screen justify-center xs:items-start lg:gap-[50px] xs:gap-[20px]">
         <Image
           src="/logo.svg"
           alt="app-logo"
           width={182.5}
           height={40}
-          className="justify-start items-left"
+          className="justify-start items-left ml-[32px]"
         />
         <form
           onSubmit={handleSubmit}
-          className="w-[476px] h-[482px] rounded-lg bg-white p-[40px] gap-[40px]"
+          className="lg:w-[476px] xs:w-full h-[482px] xs:bg-inherit rounded-lg lg:bg-white lg:p-[40px] xs:px-[32px] gap-[40px]"
         >
           <div className="mb-[40px] gap-[8px] flex flex-col">
-            <h3 className="leading-[48px] text-[32px] font-[600] font-IntSans ">
+            <h3 className="leading-[48px] lg:text-[32px] xs:text-[24px] font-[600] font-IntSans ">
               Login
             </h3>
-            <p className="text-[16px]  text-grey-color font-IntSans font-[400] leading-[24px]">
+            <p className="text-[16px] lg:w-full xs:w-[311px] text-grey-color font-IntSans font-[400] leading-[24px]">
               Add your details below to get back into the app
             </p>
           </div>
@@ -90,7 +93,7 @@ const LogIn: FC = () => {
                   value={email}
                   onChange={handleEmailChange}
                   placeholder="e.g. alex@email.com"
-                  className={`w-[396px] focus:shadow-xl relative text-[16px] h-[48px] outline-primary-color border ${
+                  className={`lg:w-[396px] xs:w-[326px] focus:shadow-xl relative text-[16px] h-[48px] outline-primary-color border ${
                     errors.email ? "border-red-500" : "border-border-color"
                   } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 />
@@ -122,7 +125,7 @@ const LogIn: FC = () => {
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="Enter your password"
-                  className={`w-[396px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
+                  className={`lg:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
                     errors.password ? "border-red-500" : "border-border-color"
                   } rounded-lg  pl-[44px] pr-[16px] py-[12px]`}
                 />
@@ -143,11 +146,11 @@ const LogIn: FC = () => {
           </div>
           <Button
             type="submit"
-            className="rounded-lg w-[396px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
+            className="rounded-lg lg:w-[396px] xs:w-[326px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
           >
             {loading ? "Logging in..." : "Login"}
           </Button>
-          <div className=" flex gap-[5px] items-center justify-center flex mt-[24px]">
+          <div className=" lg:flex-row lg:gap-[5px] xs:text-center items-center justify-center mt-[24px] flex xs:flex-col xs:gap-0 ">
             <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
               Don’t have an account?
             </p>

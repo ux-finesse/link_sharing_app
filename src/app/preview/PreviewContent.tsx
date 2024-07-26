@@ -6,6 +6,7 @@ import Button from "../components/common/buttons/Secondary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
+import withAuth from "../components/withAuth";
 import {
   LinkPreview1,
   LinkPreview2,
@@ -114,8 +115,8 @@ const PreviewContent: FC = () => {
   return (
     <>
       <ToastContainer />
-      <nav className="w-full p-[24px]">
-        <div className="w-full px-[24px] rounded-lg py-[16px] bg-white flex items-center justify-between">
+      <nav className="w-full lg:p-[24px] xs:p-0">
+        <div className="w-full px-[24px] rounded-lg py-[16px] lg:bg-white xs:bg-inherit flex items-center justify-between">
           <Link href={`/home?${profileQueryParams}`}>
             <Button className="rounded-lg w-[164px] h-[46px] bg-white px-[27px] py-[11px] hover-secondary-hover border border-primary-color hover:bg-primary-hover text-primary-color text-[16px] font-[600] leading-[24px]">
               Back to Editor
@@ -129,12 +130,12 @@ const PreviewContent: FC = () => {
           </Button>
         </div>
       </nav>
-      <section className="bg-primary-color w-full h-[357px] absolute top-0 z-[-1] rounded-b-[32px]">
-        <div className="w-[349px] rounded-3xl h-[569px] absolute bg-white flex flex-col justify-start items-center gap-[30px] top-[208px] p-[40px] top-1/2 left-1/2 transform -translate-x-1/2 flex mx-auto">
+      <section className="lg:bg-primary-color xs:bg-inherit w-full h-[357px] absolute top-0 z-[-1] rounded-b-[32px]">
+        <div className="w-[349px] rounded-3xl h-[569px] absolute lg:bg-white xs:bg-inherit flex flex-col justify-start items-center gap-[30px] top-[208px] p-[40px] top-1/2 left-1/2 transform -translate-x-1/2 flex mx-auto">
           <div className="items-center justify-center flex flex-col gap-[20px]">
             <div
               id="avatar"
-              className="relative w-[96px] h-[96px] bg-[#EEEEEE] rounded-full overflow-hidden"
+              className="relative w-[104px] h-[104px] bg-[#EEEEEE] opacity-0 rounded-full overflow-hidden"
             >
               {previewUrl ? (
                 <img
@@ -152,7 +153,6 @@ const PreviewContent: FC = () => {
             <div
               id="name"
               className="min-w-[160px] max-w-full h-[16px] transition-opacity duration-300 flex items-center justify-center"
-              
             >
               <p className="text-[18px] text-dark-grey font-IntSans text-center font-[600] leading-[27px]">
                 {formValues.firstname} {formValues.lastname}
@@ -176,4 +176,4 @@ const PreviewContent: FC = () => {
   );
 };
 
-export default PreviewContent;
+export default withAuth(PreviewContent);

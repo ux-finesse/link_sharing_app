@@ -50,12 +50,12 @@ const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
 }) => {
   return (
     <Listbox value={selected} onChange={onChange}>
-      <div className="relative">
-        <label className="text-[12px] font-IntSans text-dark-grey">
+      <div className="relative xs:flex xs:flex-col xs:gap-[8px]">
+        <label className="text-[12px] font-IntSans text-dark-grey ">
           Platform
         </label>
-        <ListboxButton className="relative w-full h-[48px] mt-[4px] cursor-default rounded-lg bg-white py-1.5 pl-[16px] pr-[16px] text-left text-dark-grey shadow-sm ring-1 ring-inset ring-gray-300 focus:shadow-xl focus:outline-primary-color focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6 border-border-color">
-          <span className="flex items-center">
+        <ListboxButton className="relative lg:w-full sm:w-[600px] xs:w-[255px] xs:flex sm:flex h-[48px] cursor-default rounded-lg bg-white lg:py-1.5 xs:pt-[12px] sm:pt-[12px] lg:pt-[12px] lg:pl-[16px] lg:pr-[16px] text-left  shadow-sm ring-1 ring-inset ring-gray-300 focus:shadow-xl focus:outline-primary-color focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6 border-border-color">
+          <span className="flex items-center font-IntSans text-[#9fa3af] xs:pl-[16px] sm:pl-0 lg:pl-0 text-[16px]">
             {selected && (
               <img
                 alt={selected.name}
@@ -63,7 +63,7 @@ const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
                 className="h-5 w-5 flex-shrink-0 rounded-full"
               />
             )}
-            <span className="ml-3 block truncate">
+            <span className="ml-3 block truncate xs:flex xs:item-center">
               {selected ? selected.name : "Select a platform"}
             </span>
           </span>
@@ -79,7 +79,7 @@ const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
             </svg>
           </span>
         </ListboxButton>
-        <ListboxOptions className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+        <ListboxOptions className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-lg bg-white py-1 lg:text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
           {socials.map((social) => (
             <ListboxOption
               key={social.id}
