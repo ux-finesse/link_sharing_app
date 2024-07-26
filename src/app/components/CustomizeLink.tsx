@@ -3,6 +3,8 @@ import React, { FC, useEffect, useState } from "react";
 import Button from "./common/buttons/Secondary";
 import Empty from "./Empty";
 import LinkCard from "./LinkCard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import {
   LinkPreview1,
@@ -111,22 +113,25 @@ const CustomizeLink: FC<{
     }
 
     setErrors({});
+    try {
+      // Save data to the server
+      const response = await fetch("/api/saveState", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          links,
+          formValues,
+          preview,
+        }),
+      });
 
-    // Save data to the server
-    const response = await fetch("/api/saveState", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        links,
-        formValues,
-        preview,
-      }),
-    });
-
-    if (response.ok) {
-      console.log("Data saved to the server successfully");
-    } else {
-      console.error("Data save to the server failed");
+      if (response.ok) {
+        toast.success("Data saved successfully!");
+      } else {
+        toast.error("Error saving data to the server.");
+      }
+    } catch (error) {
+      toast.error("Error saving data to the server.");
     }
   };
 

@@ -25,9 +25,14 @@ const NavBar: FC<{
         preview,
       }),
     });
-    const data = await response.json();
-    const previewUrl = `/preview?key=${data.key}`;
-    window.location.href = previewUrl;
+
+    if (response.ok) {
+      const data = await response.json();
+      const previewUrl = `/preview?key=${data.key}`;
+      window.location.href = previewUrl;
+    } else {
+      console.error("Error saving state");
+    }
   };
 
   return (
