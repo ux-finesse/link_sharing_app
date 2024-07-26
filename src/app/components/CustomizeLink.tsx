@@ -82,8 +82,9 @@ const CustomizeLink: FC<{
 
   const handleAddLink = () => {
     if (links.length < 5) {
-      setLinks([...links, { id: linkCount + 1, url: "", platform: null }]);
-      setLinkCount(linkCount + 1);
+      const nextId =
+        links.length > 0 ? Math.max(...links.map((link) => link.id)) + 1 : 1;
+      setLinks([...links, { id: nextId, url: "", platform: null }]);
     }
   };
 
@@ -307,7 +308,7 @@ const CustomizeLink: FC<{
                   >
                     + Add new link
                   </Button>
-                  <div className="w-full h-[500px] flex flex-col overflow-y-auto overflow-x-hidden gap-[24px] no-scrollbar">
+                  <div className="w-full h-[500px] flex flex-col overflow-y-auto overflow-x-hidden gap-[24px] ">
                     {links.length === 0 ? (
                       <Empty />
                     ) : (

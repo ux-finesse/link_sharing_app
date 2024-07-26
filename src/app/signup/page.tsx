@@ -70,11 +70,12 @@ const SignUp: FC = () => {
           body: JSON.stringify({ email, password }),
         });
 
-        const data = await res.json();
         if (!res.ok) {
-          throw new Error(data.error);
+          const errorData = await res.json();
+          throw new Error(errorData.error || "Registration failed");
         }
 
+        const data = await res.json();
         toast.success("Account created successfully");
         router.push("/welcome"); // Redirect to welcome screen
       } catch (error) {
