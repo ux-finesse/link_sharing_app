@@ -55,11 +55,11 @@ const NavBar: FC<{
               className="sm:flex sm:justify-start sm:items-left xs:flex sm:hidden lg:hidden"
             />
           </Link>
-          <div className="flex gap-[16px] xs:gap-0">
+          <div className="flex lg:gap-[16px] sm:gap-[16px] xs:gap-0 ">
             <TabButton
               id="links"
               onClick={() => handleTabClick("links")}
-              className={`rounded-lg flex gap-[8px] justify-center items-center lg:w-[130px] xs:w-[74px] lg:h-[46px] xs:h-[42px]  px-[27px] py-[11px] ${
+              className={`rounded-lg flex gap-[8px] justify-center items-center lg:w-[130px] sm:w-[130px] xs:w-[74px] lg:h-[46px] sm:h-[46px] xs:h-[42px]  px-[27px] py-[11px] ${
                 selectedTab === "links"
                   ? "bg-primary-hover text-primary-color"
                   : "bg-white text-grey-color"
@@ -77,13 +77,13 @@ const NavBar: FC<{
                   fill="currentColor"
                 />
               </svg>
-              <p className="xs:hidden lg:flex">Links</p>
+              <p className="xs:hidden lg:flex sm:flex">Links</p>
             </TabButton>
 
             <TabButton
               id="profile"
               onClick={() => handleTabClick("profile")}
-              className={`rounded-lg flex gap-[8px] justify-center items-center lg:w-[191px] xs:w-[74px] lg:h-[46px] xs:h-[42px] px-[27px] py-[11px] ${
+              className={`rounded-lg flex gap-[8px] justify-center items-center lg:w-[191px] sm:w-[191px] xs:w-[74px] lg:h-[46px] sm:h-[46px] xs:h-[42px] px-[27px] py-[11px] ${
                 selectedTab === "profile"
                   ? "bg-primary-hover text-primary-color"
                   : "bg-white text-grey-color"
@@ -102,7 +102,7 @@ const NavBar: FC<{
                   fill="currentColor"
                 />
               </svg>
-              <p className="xs:hidden lg:flex">Profile Details</p>
+              <p className="xs:hidden lg:flex sm:flex">Profile Details</p>
             </TabButton>
           </div>
           <Button

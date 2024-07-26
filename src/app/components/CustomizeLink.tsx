@@ -287,7 +287,7 @@ const CustomizeLink: FC<{
           </div>
         </section>
 
-        <section className="sm:w-full sm:flex sm:flex-col sm:justify-center sm:items-center xs:flex xs:flex-col xs:justify-center xs:items-center sm:p-0 xs:p-0 lg:p-0 xs:h-[922px]">
+        <section className="sm:w-full sm:flex sm:flex-col sm:justify-start lg:justify-start sm:items-center xs:flex xs:flex-col xs:justify-center xs:items-center sm:p-0 xs:p-0 lg:p-0 xs:h-[922px] lg:py-0">
           <div className="lg:w-[808px] lg:h-[739px] sm:h-[739px] xs:h-[861px] gap-[40px] flex bg-white flex-col lg:p-[40px] relative sm:w-full xs:w-[343px] xs:p-[24px]">
             {selectedTab === "links" && (
               <div id="createlink" className="absolute">

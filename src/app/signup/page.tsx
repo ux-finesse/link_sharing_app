@@ -91,7 +91,7 @@ const SignUp: FC = () => {
   };
 
   return (
-    <main className="flex flex-col lg:items-center min-h-screen justify-center xs:items-start lg:gap-[50px] xs:gap-[20px] ">
+    <main className="flex flex-col lg:items-center sm:items-center min-h-screen justify-center xs:items-start lg:gap-[50px] sm:gap-[50px] xs:gap-[20px]">
       <Image
         src="/logo.svg"
         alt="app-logo"
@@ -102,10 +102,10 @@ const SignUp: FC = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="lg:w-[476px] xs:w-full h-[618px] rounded-lg lg:bg-white xs:bg-inherit lg:p-[40px] xs:px-[32px]"
+        className="lg:w-[476px] sm:w-[476px] xs:w-full  h-[618px] rounded-lg lg:bg-white sm:bg-white xs:bg-inherit lg:p-[40px] sm:p-[40px] xs:px-[32px]"
       >
         <div className="mb-[40px] gap-[8px] flex flex-col">
-          <h3 className="lg:leading-[48px] lg:text-[32px] xs:text-[24px] lg:font-[600] lg:font-IntSans">
+          <h3 className="leading-[48px] lg:text-[32px] xs:text-[24px] font-[600] font-IntSans">
             Create account
           </h3>
           <p className="lg:text-[16px] lg:text-grey-color lg:font-IntSans lg:font-[400] lg:leading-[24px]">
@@ -113,8 +113,8 @@ const SignUp: FC = () => {
           </p>
         </div>
 
-        <div className="lg:flex lg:flex-col lg:gap-[24px] lg:mb-[24px]">
-          <div className="lg:gap-[8px] lg:flex flex-col">
+        <div className="flex flex-col gap-[24px] mb-[24px]">
+          <div className="lg:gap-[8px] sm:gap-[8px] lg:flex flex-col">
             <label
               htmlFor="email"
               className="lg:text-[12px] lg:font-IntSans lg:text-dark-grey"
@@ -125,7 +125,7 @@ const SignUp: FC = () => {
               <input
                 type="email"
                 placeholder="e.g. alex@email.com"
-                className={`lg:w-[396px] xs:w-[326px] focus:shadow-xl relative outline-primary-color text-[16px] h-[48px] border ${
+                className={`g:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl relative outline-primary-color text-[16px] h-[48px] border ${
                   errors.email ? "border-red-500" : "border-border-color"
                 } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={email}
@@ -157,7 +157,7 @@ const SignUp: FC = () => {
               <input
                 type="password"
                 placeholder="At least 8 characters"
-                className={`lg:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
+                className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
                   errors.password ? "border-red-500" : "border-border-color"
                 } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={password}
@@ -189,7 +189,7 @@ const SignUp: FC = () => {
               <input
                 type="password"
                 placeholder="At least 8 characters"
-                className={`lg:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] border ${
+                className={`g:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] border ${
                   errors.confirmPassword
                     ? "border-red-500"
                     : "border-border-color"
@@ -220,11 +220,11 @@ const SignUp: FC = () => {
 
         <Button
           type="submit"
-          className="rounded-lg lg:w-[396px] xs:w-[326px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
+          className="rounded-lg g:w-[396px] sm:w-[396px] xs:w-[326px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
         >
           {loading ? "Signing you up...." : "Create new account"}
         </Button>
-        <div className="lg:gap-[5px] items-center justify-center lg:flex lg:flex-row mt-[24px] xs:flex xs:flex-col xs:gap-0">
+        <div className=" lg:flex-row sm:flex-row lg:gap-[5px] sm:gap-[5px] xs:text-center items-center justify-center mt-[24px] flex xs:flex-col xs:gap-0">
           <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
             Already have an account?
           </p>
