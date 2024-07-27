@@ -16,20 +16,26 @@ export async function POST(req: NextRequest) {
     );
     const user = userCredential.user;
 
+    console.log("User created successfully:", user.uid);
+
     return NextResponse.json(
       { uid: user.uid, email: user.email },
       { status: 201 }
     );
   } catch (error) {
     console.error("Error creating user:", error);
+
     let errorMessage = "Registration failed";
-    if ((error as any).code === "auth/email-already-in-use") {
+    if (error.code === "auth/email-already-in-use") {
       errorMessage = "Account Exists";
-    } else if ((error as any).code === "auth/invalid-email") {
+    } else if (error.code === "auth/invalid-email") {
       errorMessage = "Invalid email address.";
-    } else if ((error as any).code === "auth/weak-password") {
+    } else if (error.code === "auth/weak-password") {
       errorMessage = "Password is too weak.";
+    } else if (error.code === "auth/invalid-api-key") {
+      errorMessage = "Invalid API key.";
     }
+
     return NextResponse.json({ error: errorMessage }, { status: 400 });
   }
 }
