@@ -1,41 +1,42 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { app } from "../../lib/firebase"; // Ensure this path is correct
+import { auth } from "../../lib/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const auth = getAuth(app);
+export default async function handler(req, res) {
+ console.log(`Received ${req.method} request`); // Debugging log
+  console.log("Request body:", req.body); // Debugging log
+  if (req.method === "POST") {
+    try {
+      const { email, password } = req.body;
+      console.log("Received data:", { email, password }); // Debugging log
 
-export async function POST(req) {
-  try {
-    const { email, password } = await req.json();
-    console.log("Received data:", { email, password });
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
+      console.log("User created successfully:", user.uid); // Debugging log
 
-    console.log("User created successfully:", user.uid);
+      return res.status(201).json({ uid: user.uid, email: user.email });
+    } catch (error) {
+      console.error("Error creating user:", error);
 
-    return NextResponse.json(
-      { uid: user.uid, email: user.email },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error("Error creating user:", error);
+      let errorMessage = "Registration failed";
+      if (error.code === "auth/email-already-in-use") {
+        errorMessage = "Account Exists";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "Invalid email address.";
+      } else if (error.code === "auth/weak-password") {
+        errorMessage = "Password is too weak.";
+      } else if (error.code === "auth/invalid-api-key") {
+        errorMessage = "Invalid API key.";
+      }
 
-    let errorMessage = "Registration failed";
-    if (error.code === "auth/email-already-in-use") {
-      errorMessage = "Account Exists";
-    } else if (error.code === "auth/invalid-email") {
-      errorMessage = "Invalid email address.";
-    } else if (error.code === "auth/weak-password") {
-      errorMessage = "Password is too weak.";
-    } else if (error.code === "auth/invalid-api-key") {
-      errorMessage = "Invalid API key.";
+      return res.status(400).json({ error: errorMessage });
     }
-
-    return NextResponse.json({ error: errorMessage }, { status: 400 });
+  } else {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
