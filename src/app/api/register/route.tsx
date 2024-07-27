@@ -4,7 +4,7 @@ import { app } from "../../lib/firebase"; // Ensure this path is correct
 
 const auth = getAuth(app);
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   try {
     const { email, password } = await req.json();
     console.log("Received data:", { email, password });
