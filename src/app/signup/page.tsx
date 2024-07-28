@@ -3,6 +3,7 @@ import React, { useState, FC, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import { toast } from "react-toastify";
 import Button from "../components/common/buttons/Primary"; // Adjust the import path if necessary
 
@@ -42,19 +43,12 @@ const SignUp: FC = () => {
     if (!newErrors.email && !newErrors.password && !newErrors.confirmPassword) {
       setLoading(true);
       try {
-        const response = await fetch("/api/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
+        const response = await axios.post("/api/signup", {
+          email,
+          password,
         });
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = response.data;
 
         if (data.error) {
           console.error("Signup error:", data.error);
@@ -64,11 +58,11 @@ const SignUp: FC = () => {
           router.push("/welcome"); // Redirect to welcome screen
           toast.success("Account created successfully", { theme: "light" });
         }
-      } catch (error: unknown) {
+      } catch (error) {
         console.error("Signup error:", error);
         if (
-          error instanceof Error &&
-          error.message === "auth/email-already-in-use"
+          axios.isAxiosError(error) &&
+          error.response?.data?.message === "auth/email-already-in-use"
         ) {
           setErrors((prevErrors) => ({
             ...prevErrors,

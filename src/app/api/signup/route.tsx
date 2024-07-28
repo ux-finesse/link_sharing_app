@@ -1,8 +1,6 @@
-// app/api/signup/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../lib/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
+import { firebaseConfig } from "../../lib/firebase"; // Ensure you have your firebase config here
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,15 +13,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
+    const apiKey = firebaseConfig.apiKey;
+    const response = await axios.post(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`,
+      {
+        email,
+        password,
+        returnSecureToken: true,
+      }
     );
-    const user = userCredential.user;
+
+    const user = response.data;
 
     return NextResponse.json(
-      { user: { id: user.uid, email: user.email } },
+      { user: { id: user.localId, email: user.email } },
       { status: 201 }
     );
   } catch (error) {

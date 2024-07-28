@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 import Button from "../common/buttons/Secondary";
 import TabButton from "../common/buttons/TabButton";
 
@@ -16,22 +17,22 @@ const NavBar: FC<{
   };
 
   const handlePreviewClick = async () => {
-    const response = await fetch("/api/saveState", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    try {
+      const response = await axios.post("/api/saveState", {
         links,
         formValues,
         preview,
-      }),
-    });
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      const previewUrl = `/preview?key=${data.key}`;
-      window.location.href = previewUrl;
-    } else {
-      console.error("Error saving state");
+      if (response.status === 200) {
+        const data = response.data;
+        const previewUrl = `/preview?key=${data.key}`;
+        window.location.href = previewUrl;
+      } else {
+        console.error("Error saving details");
+      }
+    } catch (error) {
+      console.error("Error saving details", error);
     }
   };
 

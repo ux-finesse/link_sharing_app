@@ -4,6 +4,7 @@ import Button from "./common/buttons/Secondary";
 import Empty from "./Empty";
 import LinkCard from "./LinkCard";
 import { toast } from "react-toastify";
+import axios from "axios";
 import Image from "next/image";
 import {
   LinkPreview1,
@@ -27,7 +28,11 @@ const CustomizeLink: FC<{
   links: any[];
   setLinks: (links: any[]) => void;
   formValues: { firstname: string; lastname: string; email: string };
-  setFormValues: (values: { firstname: string; lastname: string; email: string }) => void;
+  setFormValues: (values: {
+    firstname: string;
+    lastname: string;
+    email: string;
+  }) => void;
   preview: string | null;
   setPreview: (preview: string | null) => void;
 }> = ({
@@ -114,27 +119,23 @@ const CustomizeLink: FC<{
 
     setErrors({});
     try {
-      // Save data to the server
-      const response = await fetch("/api/saveState", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          links,
-          formValues,
-          preview,
-        }),
+      // Save data to the server using Axios
+      const response = await axios.post("/api/saveState", {
+        links,
+        formValues,
+        preview,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         toast.success("Data saved successfully!");
       } else {
         toast.error("Error saving data to the server.");
       }
     } catch (error) {
+      console.error("Error saving data:", error);
       toast.error("Error saving data to the server.");
     }
   };
-
   const renderLinkPreviews = () => {
     const previews = [];
     for (let i = 0; i < 5; i++) {

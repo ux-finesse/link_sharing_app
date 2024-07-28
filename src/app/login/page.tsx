@@ -5,6 +5,7 @@ import Button from "../components/common/buttons/Primary";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
 import { auth } from "../lib/firebase";
 import { toast } from "react-toastify";
 
@@ -28,9 +29,16 @@ const LogIn: FC = () => {
     if (!newErrors.email && !newErrors.password) {
       setLoading(true);
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        router.push("/welcome"); // Redirect to welcome screen on successful login
-        toast.success("Successfully logged in.", { theme: "light" });
+        const response = await axios.post("/api/login", { email, password });
+
+        if (response.data.error) {
+          console.error("Login error:", response.data.error);
+          toast.error(response.data.error.message, { theme: "light" });
+        } else {
+          console.log("Login successful:", response.data.user);
+          router.push("/welcome"); // Redirect to welcome screen on successful login
+          toast.success("Successfully logged in.", { theme: "light" });
+        }
       } catch (error) {
         console.error(error);
         toast.error("Failed to login. Please check your credentials.", {
@@ -55,6 +63,7 @@ const LogIn: FC = () => {
       setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
     }
   };
+
 
   return (
     <>
