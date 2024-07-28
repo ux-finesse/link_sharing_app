@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../lib/firebase";
+import { database } from "../../lib/firebase";
 import { ref, set, get, child } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const key = uuidv4();
-    await set(ref(db, "states/" + key), {
+    await set(ref(database, "states/" + key), {
       key,
       ...body,
     });
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const key = searchParams.get("key");
   console.log("Retrieving state for key:", key); // Log the key being retrieved
-  const dbRef = ref(db);
+  const dbRef = ref(database);
   try {
     const snapshot = await get(child(dbRef, `states/${key}`));
     if (snapshot.exists()) {

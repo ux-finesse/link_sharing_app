@@ -1,11 +1,10 @@
-"use client";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
-import { app } from "../lib/firebase"; // Ensure this path is correct
+import { app } from "../lib/firebase";
 
 const auth = getAuth(app);
 
-export function useAuth() {
+const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -19,4 +18,6 @@ export function useAuth() {
   }, []);
 
   return { user, loading };
-}
+};
+
+export default useAuth;

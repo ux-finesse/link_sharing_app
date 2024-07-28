@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../lib/useAuth"; // Ensure this path is correct
+import useAuth from "../lib/useAuth"; // Correct the import statement
 
 const withAuth = (WrappedComponent: React.ComponentType) => {
   const WithAuthComponent = (props: any) => {
-    const { user, loading } = useAuth();
-    const [mounted, setMounted] = useState(false);
     const router = useRouter();
+    const { user, loading } = useAuth();
 
     useEffect(() => {
-      setMounted(true);
-    }, []);
-
-    useEffect(() => {
-      if (mounted && !loading && !user) {
+      if (!loading && !user) {
         router.push("/login");
       }
-    }, [mounted, loading, user, router]);
+    }, [user, loading, router]);
 
-    if (!mounted || loading || !user) {
+    if (loading || !user) {
       return <div>Loading...</div>;
     }
 

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useAuth } from "../lib/useAuth";
+import  useAuth  from "../lib/useAuth";
 import Link from "next/link";
 import Button from "../components/common/buttons/Primary";
 import "../globals.css";

@@ -1,11 +1,10 @@
 "use client";
-import React, { FormEvent, useState, FC } from "react";
+import React, { useState, FC, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "../components/common/buttons/Primary";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import Button from "../components/common/buttons/Primary"; // Adjust the import path if necessary
 
 const SignUp: FC = () => {
   const router = useRouter();
@@ -20,51 +19,30 @@ const SignUp: FC = () => {
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
-    switch (field) {
-      case "email":
-        setEmail(value);
-        setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-        break;
-      case "password":
-        setPassword(value);
-        setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-        break;
-      case "confirmPassword":
-        setConfirmPassword(value);
-        setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: "" }));
-        break;
-      default:
-        break;
-    }
+    if (field === "email") setEmail(value);
+    if (field === "password") setPassword(value);
+    if (field === "confirmPassword") setConfirmPassword(value);
+    setErrors((prevErrors) => ({ ...prevErrors, [field]: "" }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const newErrors = { email: "", password: "", confirmPassword: "" };
 
-    if (!email) {
-      newErrors.email = "Email can't be empty";
-    }
-
-    if (!password) {
-      newErrors.password = "Password can't be empty";
-    } else if (password.length < 8) {
+    if (!email) newErrors.email = "Can't be empty";
+    if (!password) newErrors.password = "Password can't be empty";
+    if (password.length < 8)
       newErrors.password = "Password must be at least 8 characters";
-    }
-
-    if (!confirmPassword) {
+    if (!confirmPassword)
       newErrors.confirmPassword = "Please confirm your password";
-    } else if (confirmPassword !== password) {
+    if (confirmPassword !== password)
       newErrors.confirmPassword = "Passwords do not match";
-    }
 
     setErrors(newErrors);
-
     if (!newErrors.email && !newErrors.password && !newErrors.confirmPassword) {
       setLoading(true);
       try {
-        console.log("Sending data:", { email, password });
-        const res = await fetch("/api/register", {
+        const response = await fetch("/api/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -72,18 +50,37 @@ const SignUp: FC = () => {
           body: JSON.stringify({ email, password }),
         });
 
-        const data = await res.json();
-        if (res.ok) {
-          console.log("Response data:", data);
-          toast.success("Account created successfully", { theme: "light" });
-          router.push("/welcome"); // Redirect to welcome screen
-        } else {
-          console.error("Error response:", data);
-          toast.error(data.error || "Registration failed", { theme: "light" });
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
         }
-      } catch (error) {
-        console.error("Error during registration:", error);
-        toast.error((error as Error).message, { theme: "light" });
+
+        const data = await response.json();
+
+        if (data.error) {
+          console.error("Signup error:", data.error);
+          toast.error(data.error.message, { theme: "light" });
+        } else {
+          console.log("Signup successful:", data.user);
+          router.push("/welcome"); // Redirect to welcome screen
+          toast.success("Account created successfully", { theme: "light" });
+        }
+      } catch (error: unknown) {
+        console.error("Signup error:", error);
+        if (
+          error instanceof Error &&
+          error.message === "auth/email-already-in-use"
+        ) {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            email: "This email already exists",
+          }));
+          toast.error(
+            "This email address is already in use. Please try a different one.",
+            { theme: "light" }
+          );
+        } else {
+          toast.error((error as Error).message, { theme: "light" });
+        }
       } finally {
         setLoading(false);
       }
@@ -99,10 +96,9 @@ const SignUp: FC = () => {
         height={40}
         className="justify-start items-left ml-[32px]"
       />
-
       <form
         onSubmit={handleSubmit}
-        className="lg:w-[476px] sm:w-[476px] xs:w-full  h-[618px] rounded-lg lg:bg-white sm:bg-white xs:bg-inherit lg:p-[40px] sm:p-[40px] xs:px-[32px]"
+        className="lg:w-[476px] sm:w-[476px] xs:w-full h-[618px] rounded-lg lg:bg-white sm:bg-white xs:bg-inherit lg:p-[40px] sm:p-[40px] xs:px-[32px]"
       >
         <div className="mb-[40px] gap-[8px] flex flex-col">
           <h3 className="leading-[48px] lg:text-[32px] xs:text-[24px] font-[600] font-IntSans">
@@ -112,7 +108,6 @@ const SignUp: FC = () => {
             Let’s get you started sharing your links!
           </p>
         </div>
-
         <div className="flex flex-col gap-[24px] mb-[24px]">
           <div className="lg:gap-[8px] sm:gap-[8px] lg:flex flex-col">
             <label
@@ -125,7 +120,7 @@ const SignUp: FC = () => {
               <input
                 type="email"
                 placeholder="e.g. alex@email.com"
-                className={`g:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl relative outline-primary-color text-[16px] h-[48px] border ${
+                className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl relative outline-primary-color text-[16px] h-[48px] border ${
                   errors.email ? "border-red-500" : "border-border-color"
                 } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={email}
@@ -136,7 +131,7 @@ const SignUp: FC = () => {
                 alt="ph_envelope-simple-fill"
                 width={16}
                 height={16}
-                className="absolute  top-[16px] left-[16px]"
+                className="absolute top-[16px] left-[16px]"
               />
               {errors.email && (
                 <small className="absolute top-[16px] right-[16px] text-[12px] text-error-color">
@@ -145,7 +140,6 @@ const SignUp: FC = () => {
               )}
             </div>
           </div>
-
           <div className="gap-[8px] flex flex-col relative">
             <label
               htmlFor="password"
@@ -177,7 +171,6 @@ const SignUp: FC = () => {
               )}
             </div>
           </div>
-
           <div className="gap-[8px] flex flex-col relative">
             <label
               htmlFor="confirmPassword"
@@ -189,7 +182,7 @@ const SignUp: FC = () => {
               <input
                 type="password"
                 placeholder="At least 8 characters"
-                className={`g:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] border ${
+                className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] border ${
                   errors.confirmPassword
                     ? "border-red-500"
                     : "border-border-color"
@@ -217,14 +210,13 @@ const SignUp: FC = () => {
             Password must contain at least 8 characters
           </p>
         </div>
-
         <Button
           type="submit"
-          className="rounded-lg g:w-[396px] sm:w-[396px] xs:w-[326px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
+          className="rounded-lg lg:w-[396px] sm:w-[396px] xs:w-[326px] h-[46px] bg-primary-color hover:bg-primary-hover text-white text-[16px] font-[600]"
         >
-          {loading ? "Signing you up...." : "Create new account"}
+          {loading ? "Signing you up..." : "Create new account"}
         </Button>
-        <div className=" lg:flex-row sm:flex-row lg:gap-[5px] sm:gap-[5px] xs:text-center items-center justify-center mt-[24px] flex xs:flex-col xs:gap-0">
+        <div className="lg:flex-row sm:flex-row lg:gap-[5px] sm:gap-[5px] xs:text-center items-center justify-center mt-[24px] flex xs:flex-col xs:gap-0">
           <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
             Already have an account?
           </p>
@@ -235,18 +227,6 @@ const SignUp: FC = () => {
           </Link>
         </div>
       </form>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </main>
   );
 };

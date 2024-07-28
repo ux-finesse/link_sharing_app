@@ -14,12 +14,12 @@ const firebaseConfig = {
   measurementId: "G-894TYKZFS7",
 };
 
-
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 const auth = getAuth(app);
+const db = getFirestore(app);
+const database = getDatabase(app);
+const firestore = getFirestore(app);
 
-const db = getDatabase(app);
-
-export { auth, app, db };
+export { app, auth, db, database, firestore };
