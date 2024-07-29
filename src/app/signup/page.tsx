@@ -1,85 +1,55 @@
 "use client";
-import React, { useState, FC, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
+import { app } from "../../../firebase"; // Adjust the import path as necessary
 import Button from "../components/common/buttons/Primary"; // Adjust the import path if necessary
 
-const SignUp: FC = () => {
-  const router = useRouter();
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [confirmation, setConfirmation] = useState("");
+  const [error, setError] = useState<{
+    email?: string;
+    password?: string;
+    confirmation?: string;
+    general?: string;
+  }>({});
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (field: string, value: string) => {
-    if (field === "email") setEmail(value);
-    if (field === "password") setPassword(value);
-    if (field === "confirmPassword") setConfirmPassword(value);
-    setErrors((prevErrors) => ({ ...prevErrors, [field]: "" }));
-  };
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    setError({});
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const newErrors = { email: "", password: "", confirmPassword: "" };
-
-    if (!email) newErrors.email = "Can't be empty";
-    if (!password) newErrors.password = "Password can't be empty";
-    if (password.length < 8)
-      newErrors.password = "Password must be at least 8 characters";
-    if (!confirmPassword)
-      newErrors.confirmPassword = "Please confirm your password";
-    if (confirmPassword !== password)
-      newErrors.confirmPassword = "Passwords do not match";
-
-    setErrors(newErrors);
-    if (!newErrors.email && !newErrors.password && !newErrors.confirmPassword) {
-      setLoading(true);
-      try {
-        const response = await axios.post("/api/signup", {
-          email,
-          password,
-        });
-
-        const data = response.data;
-
-        if (data.error) {
-          console.error("Signup error:", data.error);
-          toast.error(data.error.message, { theme: "light" });
-        } else {
-          console.log("Signup successful:", data.user);
-          router.push("/welcome"); // Redirect to welcome screen
-          toast.success("Account created successfully", { theme: "light" });
-        }
-      } catch (error) {
-        console.error("Signup error:", error);
-        if (
-          axios.isAxiosError(error) &&
-          error.response?.data?.message === "auth/email-already-in-use"
-        ) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            email: "This email already exists",
-          }));
-          toast.error(
-            "This email address is already in use. Please try a different one.",
-            { theme: "light" }
-          );
-        } else {
-          toast.error((error as Error).message, { theme: "light" });
-        }
-      } finally {
-        setLoading(false);
-      }
+    if (password !== confirmation) {
+      setError({ confirmation: "Passwords don't match" });
+      toast.error("Passwords don't match");
+      return;
     }
-  };
+
+    try {
+      setLoading(true);
+      await createUserWithEmailAndPassword(getAuth(app), email, password);
+      router.push("/login");
+      toast.success("Account created successfully!");
+    } catch (e) {
+      const errorMessage = (e as Error).message;
+      if (errorMessage.includes("password")) {
+        setError({ password: errorMessage });
+      } else if (errorMessage.includes("email")) {
+        setError({ email: errorMessage });
+      } else {
+        setError({ general: errorMessage });
+      }
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <main className="flex flex-col lg:items-center sm:items-center min-h-screen justify-center xs:items-start lg:gap-[50px] sm:gap-[50px] xs:gap-[20px]">
@@ -88,7 +58,7 @@ const SignUp: FC = () => {
         alt="app-logo"
         width={182.5}
         height={40}
-        className="justify-start items-left ml-[32px]"
+        className="justify-start items-left lg:ml-0 sm:ml-0 xs:ml-[32px]"
       />
       <form
         onSubmit={handleSubmit}
@@ -115,10 +85,10 @@ const SignUp: FC = () => {
                 type="email"
                 placeholder="e.g. alex@email.com"
                 className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl relative outline-primary-color text-[16px] h-[48px] border ${
-                  errors.email ? "border-red-500" : "border-border-color"
+                  error.email ? "border-red-500" : "border-border-color"
                 } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Image
                 src="/ph_envelope-simple-fill.svg"
@@ -127,9 +97,9 @@ const SignUp: FC = () => {
                 height={16}
                 className="absolute top-[16px] left-[16px]"
               />
-              {errors.email && (
+              {error.email && (
                 <small className="absolute top-[16px] right-[16px] text-[12px] text-error-color">
-                  {errors.email}
+                  {error.email}
                 </small>
               )}
             </div>
@@ -146,10 +116,10 @@ const SignUp: FC = () => {
                 type="password"
                 placeholder="At least 8 characters"
                 className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
-                  errors.password ? "border-red-500" : "border-border-color"
+                  error.password ? "border-red-500" : "border-border-color"
                 } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 value={password}
-                onChange={(e) => handleInputChange("password", e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <Image
                 src="/ph_lock-key-fill.svg"
@@ -158,9 +128,9 @@ const SignUp: FC = () => {
                 height={16}
                 className="absolute top-[16px] left-[16px]"
               />
-              {errors.password && (
+              {error.password && (
                 <small className="absolute top-[16px] right-[16px] text-[12px] text-error-color">
-                  {errors.password}
+                  {error.password}
                 </small>
               )}
             </div>
@@ -177,14 +147,10 @@ const SignUp: FC = () => {
                 type="password"
                 placeholder="At least 8 characters"
                 className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] border ${
-                  errors.confirmPassword
-                    ? "border-red-500"
-                    : "border-border-color"
+                  error.confirmation ? "border-red-500" : "border-border-color"
                 } outline-primary-color rounded-lg pl-[44px] pr-[16px] py-[12px]`}
-                value={confirmPassword}
-                onChange={(e) =>
-                  handleInputChange("confirmPassword", e.target.value)
-                }
+                value={confirmation}
+                onChange={(e) => setConfirmation(e.target.value)}
               />
               <Image
                 src="/ph_lock-key-fill.svg"
@@ -193,9 +159,9 @@ const SignUp: FC = () => {
                 height={16}
                 className="absolute top-[16px] left-[16px]"
               />
-              {errors.confirmPassword && (
+              {error.confirmation && (
                 <small className="absolute top-[16px] right-[16px] text-[12px] text-error-color">
-                  {errors.confirmPassword}
+                  {error.confirmation}
                 </small>
               )}
             </div>
@@ -210,6 +176,9 @@ const SignUp: FC = () => {
         >
           {loading ? "Signing you up..." : "Create new account"}
         </Button>
+        {error.general && (
+          <p className="text-red-500 text-center mt-4">{error.general}</p>
+        )}
         <div className="lg:flex-row sm:flex-row lg:gap-[5px] sm:gap-[5px] xs:text-center items-center justify-center mt-[24px] flex xs:flex-col xs:gap-0">
           <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
             Already have an account?
@@ -224,5 +193,3 @@ const SignUp: FC = () => {
     </main>
   );
 };
-
-export default SignUp;

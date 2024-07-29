@@ -1,13 +1,26 @@
 "use client";
 import React from "react";
 import  useAuth  from "../lib/useAuth";
+import { useRouter } from "next/navigation";
+import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
 import Button from "../components/common/buttons/Primary";
 import "../globals.css";
+import { app } from "../../../firebase";
 import withAuth from "../components/withAuth";
 
 const Welcome: React.FC = () => {
   const { user, loading } = useAuth();
+  const router = useRouter();
+
+  async function handleLogout() {
+    await signOut(getAuth(app));
+
+    await fetch("/api/logout");
+
+    router.push("/login");
+  }
+
 
   if (loading) {
     return (

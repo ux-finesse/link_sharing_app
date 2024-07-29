@@ -1,69 +1,61 @@
 "use client";
-import React, { useState, FC } from "react";
+import React, { useState, FormEvent } from "react";
 import Image from "next/image";
-import Button from "../components/common/buttons/Primary";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import axios from "axios";
-import { auth } from "../lib/firebase";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { app } from "../../../firebase"; // Adjust the import path as necessary
+import Button from "../components/common/buttons/Primary"; // Adjust the import path as necessary
 import { toast } from "react-toastify";
 
-const LogIn: FC = () => {
+type ErrorState = {
+  email?: string;
+  password?: string;
+  general?: string;
+};
+
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<ErrorState>({});
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors = { email: "", password: "" };
-    if (!email) {
-      newErrors.email = "Can’t be empty";
-    }
-    if (!password) {
-      newErrors.password = "Please check again";
-    }
-    setErrors(newErrors);
-    if (!newErrors.email && !newErrors.password) {
-      setLoading(true);
-      try {
-        const response = await axios.post("/api/login", { email, password });
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    setError({});
+    setLoading(true);
 
-        if (response.data.error) {
-          console.error("Login error:", response.data.error);
-          toast.error(response.data.error.message, { theme: "light" });
-        } else {
-          console.log("Login successful:", response.data.user);
-          router.push("/welcome"); // Redirect to welcome screen on successful login
-          toast.success("Successfully logged in.", { theme: "light" });
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error("Failed to login. Please check your credentials.", {
-          theme: "light",
-        });
-      } finally {
-        setLoading(false);
+    try {
+      const credential = await signInWithEmailAndPassword(
+        getAuth(app),
+        email,
+        password
+      );
+      const idToken = await credential.user.getIdToken();
+
+      await fetch("/api/login", {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
+
+      router.push("/welcome");
+      toast.success("Successfully logged in!");
+    } catch (e) {
+      const errorMessage = (e as Error).message;
+      if (errorMessage.includes("password")) {
+        setError({ password: errorMessage });
+      } else if (errorMessage.includes("email")) {
+        setError({ email: errorMessage });
+      } else {
+        setError({ general: errorMessage });
       }
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    if (errors.email) {
-      setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-    }
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if (errors.password) {
-      setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-    }
-  };
-
+  }
 
   return (
     <>
@@ -73,7 +65,7 @@ const LogIn: FC = () => {
           alt="app-logo"
           width={182.5}
           height={40}
-          className="justify-start items-left ml-[32px]"
+          className="justify-start items-left lg:ml-0 sm:ml-0 xs:ml-[32px]"
         />
         <form
           onSubmit={handleSubmit}
@@ -100,10 +92,10 @@ const LogIn: FC = () => {
                 <input
                   type="email"
                   value={email}
-                  onChange={handleEmailChange}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="e.g. alex@email.com"
                   className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl relative text-[16px] h-[48px] outline-primary-color border ${
-                    errors.email ? "border-red-500" : "border-border-color"
+                    error.email ? "border-red-500" : "border-border-color"
                   } rounded-lg pl-[44px] pr-[16px] py-[12px]`}
                 />
                 <Image
@@ -113,9 +105,9 @@ const LogIn: FC = () => {
                   height={16}
                   className="absolute top-[16px] left-[16px]"
                 />
-                {errors.email && (
+                {error.email && (
                   <small className="absolute top-[16px] right-[16px] text-[12px] text-red-500">
-                    {errors.email}
+                    {error.email}
                   </small>
                 )}
               </div>
@@ -132,10 +124,10 @@ const LogIn: FC = () => {
                 <input
                   type="password"
                   value={password}
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                   className={`lg:w-[396px] sm:w-[396px] xs:w-[326px] focus:shadow-xl text-[16px] h-[48px] outline-primary-color border ${
-                    errors.password ? "border-red-500" : "border-border-color"
+                    error.password ? "border-red-500" : "border-border-color"
                   } rounded-lg  pl-[44px] pr-[16px] py-[12px]`}
                 />
                 <Image
@@ -145,9 +137,9 @@ const LogIn: FC = () => {
                   height={16}
                   className="absolute top-[16px] left-[16px]"
                 />
-                {errors.password && (
+                {error.password && (
                   <small className="absolute top-[16px] right-[16px] text-[12px] text-red-500">
-                    {errors.password}
+                    {error.password}
                   </small>
                 )}
               </div>
@@ -159,7 +151,7 @@ const LogIn: FC = () => {
           >
             {loading ? "Logging in..." : "Login"}
           </Button>
-          <div className=" lg:flex-row sm:flex-row lg:gap-[5px] sm:gap-[5px] xs:text-center items-center justify-center mt-[24px] flex xs:flex-col xs:gap-0 ">
+            <div className=" lg:flex-row sm:flex-row lg:gap-[5px] sm:gap-[5px] xs:text-center items-center justify-center mt-[24px] flex xs:flex-col xs:gap-0 ">
             <p className="text-[16px] text-grey-color font-IntSans font-[400] leading-[24px]">
               Don’t have an account?
             </p>
@@ -173,6 +165,4 @@ const LogIn: FC = () => {
       </main>
     </>
   );
-};
-
-export default LogIn;
+}

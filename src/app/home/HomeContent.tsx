@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { FC, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -8,9 +8,8 @@ import { getAuth, signOut } from "firebase/auth";
 import useInactivityLogout from "../hooks/InActivityLogout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { auth } from "../lib/firebase";
+import { auth } from "../../../firebase";
 import withAuth from "../components/withAuth";
-
 
 const HomeContent: FC = () => {
   const searchParams = useSearchParams();
