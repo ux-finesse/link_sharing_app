@@ -119,7 +119,6 @@ const CustomizeLink: FC<{
 
     setErrors({});
     try {
-      // Save data to the server using Axios
       const response = await axios.post("/api/saveState", {
         links,
         formValues,
@@ -127,15 +126,36 @@ const CustomizeLink: FC<{
       });
 
       if (response.status === 200) {
-        toast.success("Data saved successfully!");
+        const { key } = response.data;
+        console.log("Data saved successfully:", key);
+        toast.success("Data saved successfully");
+        // window.location.href = `/home/?key=${key}`; // Use the dynamic key
       } else {
-        toast.error("Error saving data to the server.");
+        console.error("Error saving details");
+        toast.error("Error saving details");
       }
-    } catch (error) {
-      console.error("Error saving data:", error);
-      toast.error("Error saving data to the server.");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          console.error("Server error:", error.response.data);
+          toast.error(`Server error: ${error.response.data}`);
+        } else if (error.request) {
+          console.error("Network error:", error.request);
+          toast.error("Network error: No response received");
+        } else {
+          console.error("Unexpected Axios error:", error.message);
+          toast.error(`Unexpected error: ${error.message}`);
+        }
+      } else if (error instanceof Error) {
+        console.error("Unexpected error:", error.message);
+        toast.error(`Unexpected error: ${error.message}`);
+      } else {
+        console.error("An unknown error occurred");
+        toast.error("An unknown error occurred");
+      }
     }
   };
+
   const renderLinkPreviews = () => {
     const previews = [];
     for (let i = 0; i < 5; i++) {
@@ -504,4 +524,3 @@ const CustomizeLink: FC<{
 };
 
 export default CustomizeLink;
-                     

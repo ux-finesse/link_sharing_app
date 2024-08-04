@@ -3,8 +3,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Button from "../components/common/buttons/Secondary";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import Link from "next/link";
 import withAuth from "../components/withAuth";
 import {
@@ -114,7 +113,6 @@ const PreviewContent: FC = () => {
 
   return (
     <>
-      <ToastContainer />
       <nav className="w-full lg:p-[24px] sm:p-[24px] xs:p-0">
         <div className="w-full px-[24px] rounded-lg py-[16px] lg:bg-white sm:bg-white xs:bg-inherit flex items-center justify-between">
           <Link href={`/home?${profileQueryParams}`}>

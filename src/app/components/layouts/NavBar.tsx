@@ -16,6 +16,7 @@ const NavBar: FC<{
     setSelectedTab(tab);
   };
 
+
   const handlePreviewClick = async () => {
     try {
       const response = await axios.post("/api/saveState", {

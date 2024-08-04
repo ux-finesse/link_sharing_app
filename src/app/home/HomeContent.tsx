@@ -6,8 +6,7 @@ import NavBar from "../components/layouts/NavBar";
 import CustomizeLink from "../components/CustomizeLink";
 import { getAuth, signOut } from "firebase/auth";
 import useInactivityLogout from "../hooks/InActivityLogout";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { auth } from "../../../firebase";
 import withAuth from "../components/withAuth";
 
@@ -55,7 +54,7 @@ const HomeContent: FC = () => {
       });
   };
 
-  // Set the timeout to 10 minutes (600,000 milliseconds)
+  
   useInactivityLogout(600000, handleLogout);
 
   return (
@@ -75,18 +74,6 @@ const HomeContent: FC = () => {
         setFormValues={setFormValues}
         preview={previewUrl}
         setPreview={setPreview}
-      />
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
       />
     </>
   );

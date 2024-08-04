@@ -1,8 +1,10 @@
+// Import necessary modules
 import { NextRequest, NextResponse } from "next/server";
-import { database } from "../../../../firebase";
+import { database } from "../../../../firebase"; // Adjust the path according to your setup
 import { ref, set, get, child } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 
+// POST method to save data to the database
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -21,13 +23,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// GET method to retrieve data from the database
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const key = searchParams.get("key");
+  const key = searchParams.get("key"); // Get the key from query parameters
   console.log("Retrieving state for key:", key); // Log the key being retrieved
   const dbRef = ref(database);
   try {
-    const snapshot = await get(child(dbRef, `states/${key}`));
+    const snapshot = await get(child(dbRef, `states/${key}`)); // Retrieve data from Firebase
     if (snapshot.exists()) {
       console.log("State found:", snapshot.val()); // Log the state found
       return NextResponse.json(snapshot.val(), { status: 200 });

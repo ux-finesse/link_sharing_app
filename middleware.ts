@@ -10,8 +10,8 @@ const PUBLIC_PATHS = ["/register", "/login"];
 
 export async function middleware(request: NextRequest) {
   return authMiddleware(request, {
-    loginPath: "/api/login",
-    logoutPath: "/api/logout",
+    loginPath: "/login",
+    logoutPath: "/logout",
     apiKey: clientConfig.apiKey,
     cookieName: serverConfig.cookieName,
     cookieSignatureKeys: serverConfig.cookieSignatureKeys,
@@ -48,5 +48,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/((?!_next|api|.*\\.).*)", "/api/login", "/api/logout"],
+  matcher: ["/", "/((?!_next|api|.*\\.).*)"],
 };

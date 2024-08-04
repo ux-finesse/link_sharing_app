@@ -55,7 +55,7 @@ const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
           Platform
         </label>
         <ListboxButton className="relative lg:w-full sm:w-[600px] xs:w-[255px] xs:flex sm:flex h-[48px] cursor-default rounded-lg bg-white lg:py-1.5 xs:pt-[12px] sm:pt-[12px] lg:pt-[12px] lg:pl-[16px] lg:pr-[16px] text-left  shadow-sm ring-1 ring-inset ring-gray-300 focus:shadow-xl focus:outline-primary-color focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6 border-border-color">
-          <span className="flex items-center font-IntSans text-[#9fa3af] xs:pl-[16px] sm:pl-0 lg:pl-0 text-[16px]">
+          <span className="flex items-center font-IntSans xs:pl-[16px] sm:pl-0 lg:pl-0 text-[16px]">
             {selected && (
               <img
                 alt={selected.name}
@@ -63,7 +63,7 @@ const Dropdown: FC<{ selected: any; onChange: (selected: any) => void }> = ({
                 className="h-5 w-5 flex-shrink-0 rounded-full"
               />
             )}
-            <span className="ml-3 block truncate xs:flex xs:item-center">
+            <span className="ml-3 block truncate xs:flex xs:item-center text-dark-grey">
               {selected ? selected.name : "Select a platform"}
             </span>
           </span>
