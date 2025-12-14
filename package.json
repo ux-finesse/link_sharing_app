@@ -21,7 +21,7 @@
     "axios": "^1.7.2",
     "firebase": "^10.12.4",
     "firebase-admin": "^11.11.1",
-    "next": "^14.2.5",
+    "next": "14.2.35",
     "next-auth": "^4.24.7",
     "next-firebase-auth-edge": "^1.7.0-canary.2",
     "react": "^18",
